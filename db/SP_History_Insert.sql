@@ -1,0 +1,27 @@
+USE [Inventario]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_History_Insert]    Script Date: 4/23/2025 3:10:10 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SP_History_Insert]
+	@ProductID INT = NULL,
+	@AddedStock INT = NULL
+AS
+SET NOCOUNT ON;
+BEGIN
+	BEGIN TRY
+		BEGIN
+			DECLARE @SCOPEIDENTITY INT;
+			INSERT INTO dbo.History(ProductID, AddedStocks, Date)
+			VALUES(@ProductID, @AddedStock, GETDATE());
+				SET @SCOPEIDENTITY = SCOPE_IDENTITY();
+					SELECT @SCOPEIDENTITY AS Id
+		END
+	END TRY
+		BEGIN CATCH
+			SELECT ERROR_MESSAGE() AS ERROR,
+				ERROR_NUMBER() AS ERROR_NRO
+		END CATCH;
+END
