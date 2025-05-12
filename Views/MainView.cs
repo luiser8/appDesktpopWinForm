@@ -5,6 +5,7 @@ using InventoryApp.InventoryApp.dlg;
 using InventoryApp.InventoryApp.Views;
 using InventoryApp.Views;
 using InventoryApp.Views.Dashboard;
+using InventoryApp.Views.Usuarios;
 
 namespace InventoryApp.InventoryApp
 {
@@ -15,6 +16,9 @@ namespace InventoryApp.InventoryApp
         {
             InitializeComponent();
             SwitchForm(new Dashboard());
+
+            if (rolname == "Administrador")
+                radioButton6.Visible = true;
 
             button1.Text = $"Logout ({username} - {rolname})";
 
@@ -110,6 +114,24 @@ namespace InventoryApp.InventoryApp
             CartManager cartManager = new CartManager();
             int cartItemCount = cartManager.GetCartItemCount();
             radioButton3.Text = "Sale (" + cartItemCount.ToString() + ")";
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void radioButton6_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton6.Checked)
+            {
+                SwitchForm(new UsuariosView());
+            }
         }
     }
 }

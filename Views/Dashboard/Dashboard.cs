@@ -8,5 +8,10 @@ namespace InventoryApp.Views.Dashboard
         {
             InitializeComponent();
         }
+
+        private void Dashboard_Load(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }

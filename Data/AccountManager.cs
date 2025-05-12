@@ -12,31 +12,32 @@ namespace InventoryApp.Data
         private DataTable _dt = new DataTable();
         private readonly Hashtable _params = new Hashtable();
 
-        public Usuario GetAllUsuarios()
+        public DataTable GetAllUsuarios()
         {
             _params.Clear();
             _dt = _dbCon.Execute("SP_Users_Select_All", _params);
+            return _dt;
 
-            Usuario usuario = null;
+            //Usuario usuario = null;
 
-            if (_dt != null || _dt.Rows.Count <= 0)
-            {
-                foreach (DataRow row in _dt.Rows)
-                {
-                    usuario = new Usuario
-                    {
-                        Id = Convert.ToInt32(row["Id"]),
-                        RolId = Convert.ToInt32(row["RolId"]),
-                        UserName = row["UserName"].ToString(),
-                        RolName = row["RolName"].ToString(),
-                        Email = row["Email"]?.ToString(),
-                        Status = Convert.ToBoolean(row["Status"]),
-                        CreatedAt = Convert.ToDateTime(row["Status"])
-                    };
-                }
-            }
+            //if (_dt != null || _dt.Rows.Count <= 0)
+            //{
+            //    foreach (DataRow row in _dt.Rows)
+            //    {
+            //        usuario = new Usuario
+            //        {
+            //            Id = Convert.ToInt32(row["Id"]),
+            //            RolId = Convert.ToInt32(row["RolId"]),
+            //            UserName = row["UserName"].ToString(),
+            //            RolName = row["RolName"].ToString(),
+            //            Email = row["Email"]?.ToString(),
+            //            Status = Convert.ToBoolean(row["Status"]),
+            //            CreatedAt = Convert.ToDateTime(row["Status"])
+            //        };
+            //    }
+            //}
 
-            return usuario;
+            //return usuario;
         }
 
         public UsuarioResponse ValidateUserCredentials(string username, string password)
