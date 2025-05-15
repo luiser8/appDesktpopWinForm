@@ -5,7 +5,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE [dbo].[SP_Transactions_Insert]
+CREATE PROCEDURE [dbo].[SP_Transactions_Insert]
 	@TransactionId VARCHAR(MAX) = NULL,
 	@Subtotal VARCHAR(55) = NULL,
 	@Cash VARCHAR(55) = NULL,

@@ -1,38 +1,81 @@
-﻿using InventoryApp.Data;
-using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
+using InventoryApp.Data;
+using InventoryApp.Views.Usuarios;
 
-namespace InventoryApp.Views.Usuarios
+namespace InventoryApp.InventoryApp.Views
 {
     public partial class UsuariosView : Form
     {
         private readonly AccountManager accountManager = new AccountManager();
-
         public UsuariosView()
         {
-            InitializeComponent(); 
+            InitializeComponent();
             var data = accountManager.GetAllUsuarios();
             dataGridView1.DataSource = data;
-            dataGridView1.Dock = DockStyle.Fill;
-
-            // O alternativamente, usar Anchor (para márgenes fijos)
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom
-                                 | AnchorStyles.Left | AnchorStyles.Right;
         }
 
-        private void UsuariosView_Load(object sender, EventArgs e)
+        //ADD BUTTON - Usuario
+        private void button1_Click(object sender, System.EventArgs e)
         {
-
+            UsuariosForm dlg = new UsuariosForm();
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                dataGridView1.DataSource = accountManager.GetAllUsuarios();
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        //UPDATE BUTTON - Usuarios
+        private void button2_Click(object sender, System.EventArgs e)
         {
-            UsuariosForm usuariosForm = new UsuariosForm();
-            if(usuariosForm.ShowDialog() == DialogResult.OK)
-                usuariosForm.ShowDialog();
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                // Get the data from the selected row
+                DataGridViewRow row = dataGridView1.SelectedRows[0];
+                int id = (int)row.Cells["Id"].Value;
+
+                // Pass the data to EditUser
+                UsuariosForm dlg = new UsuariosForm(new Usuario
+                {
+                    Id = id,
+                    RolName = row.Cells["RolName"].Value.ToString(),
+                    UserName = row.Cells["UserName"].Value.ToString(),
+                    Password = row.Cells["Password"].Value.ToString(),
+                    Email = row.Cells["Email"].Value.ToString()
+                });
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    dataGridView1.DataSource = accountManager.GetAllUsuarios();
+                }
+            }
+            else
+            {
+                MessageBox.Show("No user is available for editing.", "Empty User",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        //DELETE BUTTON - User
+        private void button3_Click(object sender, System.EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                int id = (int)dataGridView1.SelectedRows[0].Cells["ID"].Value;
+
+                if (MessageBox.Show("Are you sure want to delete this user?", "Warning!",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    accountManager.DeleteUser(id);
+                    dataGridView1.Rows.RemoveAt(dataGridView1.SelectedRows[0].Index);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a user to delete.", "Empty User",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void UsuariosView_Load(object sender, System.EventArgs e)
         {
 
         }

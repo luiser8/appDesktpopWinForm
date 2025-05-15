@@ -34,7 +34,7 @@ namespace InventoryApp.Data
                 decimal price = decimal.Parse(parts[2]);
                 int quantity = int.Parse(parts[0]);
 
-                _ordersManager.InsertOrders(new Models.Order
+                _ordersManager.InsertOrders(new Order
                 {
                     TransactionId = transactionId,
                     Name = name,

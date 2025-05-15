@@ -100,6 +100,43 @@ namespace InventoryApp.Data
             }
         }
 
+        //Update User
+        public void UpdateUser(Usuario usuario)
+        {
+            _params.Clear();
+            _params.Add("@Id", usuario.Id);
+            _params.Add("@RolName", usuario.RolName);
+            _params.Add("@UserName", usuario.UserName);
+            _params.Add("@Password", MD5.GetMD5(usuario.Password));
+            _params.Add("@Email", usuario.Email);
+            _dt = _dbCon.Execute("SP_Users_Update", _params);
+
+            if (_dt != null || _dt.Rows.Count != 0)
+            {
+                MessageBox.Show("Update successful!", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Failed to update. Please try again.", "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Delete user
+        public void DeleteUser(int id)
+        {
+            _params.Clear();
+            _params.Add("@Id", id);
+            _dt = _dbCon.Execute("SP_Users_Delete", _params);
+            if (_dt != null || _dt.Rows.Count != 0)
+            {
+                MessageBox.Show("User deleted successfully!", "Delete User", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Failed to delete user. Please try again.", "Delete User Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         // Check if user name already exists
         private bool IsUsernameExists(string username)
         {

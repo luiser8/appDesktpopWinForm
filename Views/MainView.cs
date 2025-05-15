@@ -5,7 +5,6 @@ using InventoryApp.InventoryApp.dlg;
 using InventoryApp.InventoryApp.Views;
 using InventoryApp.Views;
 using InventoryApp.Views.Dashboard;
-using InventoryApp.Views.Usuarios;
 
 namespace InventoryApp.InventoryApp
 {

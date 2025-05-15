@@ -28,9 +28,8 @@ namespace InventoryApp.Views
 
             string username = textBox1.Text;
             string password = textBox2.Text;
+            var usuarioSession = ValidateUserCredentials(username, password);
 
-
-                    var usuarioSession = ValidateUserCredentials(username, password);
             if (usuarioSession != null)
             {
                 UserSession.SessionUID = usuarioSession.Id;
