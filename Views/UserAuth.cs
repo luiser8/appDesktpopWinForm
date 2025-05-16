@@ -1,7 +1,8 @@
-﻿using InventoryApp.InventoryApp;
-using InventoryApp.Data;
-using System.Windows.Forms;
+﻿using InventoryApp.Data;
+using InventoryApp.InventoryApp;
 using System;
+using System.Configuration;
+using System.Windows.Forms;
 
 namespace InventoryApp.Views
 {
@@ -13,6 +14,7 @@ namespace InventoryApp.Views
         {
             InitializeComponent();
             accountManager = new AccountManager();
+            label3.Text = ConfigurationManager.AppSettings["company"].ToString();
         }
 
         // Validate Users Credentials
