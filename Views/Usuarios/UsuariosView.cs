@@ -1,17 +1,29 @@
-﻿using System.Windows.Forms;
-using InventoryApp.Data;
+﻿using InventoryApp.Data;
+using InventoryApp.Models;
+using InventoryApp.Views.Audit;
 using InventoryApp.Views.Usuarios;
+using System;
+using System.Data;
+using System.Windows.Forms;
 
 namespace InventoryApp.InventoryApp.Views
 {
     public partial class UsuariosView : Form
     {
         private readonly AccountManager accountManager = new AccountManager();
+
         public UsuariosView()
         {
             InitializeComponent();
-            var data = accountManager.GetAllUsuarios();
-            dataGridView1.DataSource = data;
+            SetDatGridViewColumns(accountManager.GetAllUsuarios(UserSession.SessionUID));
+        }
+
+        private void SetDatGridViewColumns(DataTable dataTable)
+        {
+            dataGridView1.DataSource = dataTable;
+            dataGridView1.Columns["RolId"].Visible = false;
+            dataGridView1.Columns["Password"].Visible = false;
+            dataGridView1.Columns["Status"].Visible = false;
         }
 
         //ADD BUTTON - Usuario
@@ -20,7 +32,7 @@ namespace InventoryApp.InventoryApp.Views
             UsuariosForm dlg = new UsuariosForm();
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                dataGridView1.DataSource = accountManager.GetAllUsuarios();
+                SetDatGridViewColumns(accountManager.GetAllUsuarios(UserSession.SessionUID));
             }
         }
 
@@ -37,19 +49,22 @@ namespace InventoryApp.InventoryApp.Views
                 UsuariosForm dlg = new UsuariosForm(new Usuario
                 {
                     Id = id,
+                    FirstName = row.Cells["FirstName"].Value.ToString(),
+                    LastName = row.Cells["LastName"].Value.ToString(),
                     RolName = row.Cells["RolName"].Value.ToString(),
                     UserName = row.Cells["UserName"].Value.ToString(),
                     Password = row.Cells["Password"].Value.ToString(),
-                    Email = row.Cells["Email"].Value.ToString()
+                    Email = row.Cells["Email"].Value.ToString(),
+                    Status = Convert.ToInt32(row.Cells["Status"].Value) == 1,
                 });
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    dataGridView1.DataSource = accountManager.GetAllUsuarios();
+                    SetDatGridViewColumns(accountManager.GetAllUsuarios(UserSession.SessionUID));
                 }
             }
             else
             {
-                MessageBox.Show("No user is available for editing.", "Empty User",
+                MessageBox.Show("No hay usuario disponible para editar.", "Usuario vacío",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -59,9 +74,9 @@ namespace InventoryApp.InventoryApp.Views
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                int id = (int)dataGridView1.SelectedRows[0].Cells["ID"].Value;
+                int id = (int)dataGridView1.SelectedRows[0].Cells["Id"].Value;
 
-                if (MessageBox.Show("Are you sure want to delete this user?", "Warning!",
+                if (MessageBox.Show("¿Está seguro que desea eliminar este usuario?", "¡Advertencia!",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     accountManager.DeleteUser(id);
@@ -70,7 +85,7 @@ namespace InventoryApp.InventoryApp.Views
             }
             else
             {
-                MessageBox.Show("Please select a user to delete.", "Empty User",
+                MessageBox.Show("Por favor seleccione un usuario para eliminar.", "Usuario vacío",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -78,6 +93,39 @@ namespace InventoryApp.InventoryApp.Views
         private void UsuariosView_Load(object sender, System.EventArgs e)
         {
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                int id = (int)dataGridView1.SelectedRows[0].Cells["Id"].Value;
+                var viewAudit = new AuditView(new AuditUser
+                {
+                    Id = id
+                });
+
+                viewAudit.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Por favor seleccione un usuario para ver la auditoría.", "Usuario vacío",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                var formNewPassword = new UsuariosFormNewPassword((int)dataGridView1.SelectedRows[0].Cells["Id"].Value);
+                formNewPassword.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Por favor seleccione un usuario para cambiar la contraseña.", "Usuario vacío",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

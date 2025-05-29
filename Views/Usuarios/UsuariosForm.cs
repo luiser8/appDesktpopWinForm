@@ -23,10 +23,14 @@ namespace InventoryApp.Views.Usuarios
             InitializeComponent();
             RenderComboBoxRoles();
             userId = usuario.Id;
+            textBox4.Text = usuario.FirstName;
+            textBox5.Text = usuario.LastName;
             textBox1.Text = usuario.UserName;
             textBox2.Text = usuario.Password;
             textBox3.Text = usuario.Email;
             comboBox1.Text = usuario.RolName;
+            radioButton1.Checked = usuario.Status;
+            radioButton2.Checked = !usuario.Status;
         }
 
         public void RenderComboBoxRoles()
@@ -57,10 +61,13 @@ namespace InventoryApp.Views.Usuarios
 
         private void ProcessLoginForm()
         {
+            string firstName = textBox4.Text;
+            string lastName = textBox5.Text;
             string rolName = comboBox1.Text;
             string username = textBox1.Text;
             string password = textBox2.Text;
             string email = textBox3.Text;
+            bool status = radioButton1.Checked;
 
             bool isValid = true;
 
@@ -81,10 +88,13 @@ namespace InventoryApp.Views.Usuarios
                     SaveUser(new Usuario
                     {
                         Id = userId,
+                        FirstName = firstName,
+                        LastName = lastName,
                         RolName = rolName,
                         UserName = username,
                         Password = password,
                         Email = email,
+                        Status = status
                     });
             }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using InventoryApp.Data;
+using InventoryApp.Models;
 
 namespace InventoryApp.Utility
 {
@@ -104,7 +105,7 @@ namespace InventoryApp.Utility
                 });
                 cartManager.RemoveCartItem(UserSession.SessionUID, "@Uid");
 
-                totalAfterDiscount = total; // Assign the calculated total after discount
+                totalAfterDiscount = total;
                 return true;
             }
             catch (Exception ex)
@@ -112,17 +113,6 @@ namespace InventoryApp.Utility
                 MessageBox.Show("An error occurred while saving the transaction: " + ex.Message);
                 return false;
             }
-        }
-    }
-
-    public class ComboBoxItem
-    {
-        public double Value { get; set; }
-        public string Description { get; set; }
-
-        public override string ToString()
-        {
-            return Description;
         }
     }
 }

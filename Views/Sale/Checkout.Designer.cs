@@ -69,9 +69,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(28, 146);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 13);
+            this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Cash";
+            this.label2.Text = "Efectivo";
             // 
             // button1
             // 
@@ -79,7 +79,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(111, 41);
             this.button1.TabIndex = 10;
-            this.button1.Text = "CANCEL";
+            this.button1.Text = "CANCELAR";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -89,7 +89,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(111, 41);
             this.button2.TabIndex = 11;
-            this.button2.Text = "PAY";
+            this.button2.Text = "PAGAR";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -130,9 +130,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(28, 341);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(44, 13);
+            this.label9.Size = new System.Drawing.Size(42, 13);
             this.label9.TabIndex = 21;
-            this.label9.Text = "Change";
+            this.label9.Text = "Cambio";
             // 
             // comboBox1
             // 
@@ -170,9 +170,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(25, 264);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 13);
+            this.label6.Size = new System.Drawing.Size(55, 13);
             this.label6.TabIndex = 17;
-            this.label6.Text = "Discount";
+            this.label6.Text = "Discuento";
             // 
             // label5
             // 
@@ -206,9 +206,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(24, 182);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 13);
+            this.label4.Size = new System.Drawing.Size(59, 13);
             this.label4.TabIndex = 14;
-            this.label4.Text = "Voucher";
+            this.label4.Text = "Descuento";
             // 
             // Checkout
             // 
@@ -222,7 +222,7 @@
             this.Name = "Checkout";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Checkout";
+            this.Text = "Verificar";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

@@ -1,4 +1,5 @@
-﻿using InventoryApp.Utility;
+﻿using InventoryApp.Models;
+using InventoryApp.Utility;
 using System;
 using System.Collections;
 using System.Data;
@@ -11,10 +12,12 @@ namespace InventoryApp.Data
         private readonly CustomDataTable _dbCon = new CustomDataTable();
         private DataTable _dt = new DataTable();
         private readonly Hashtable _params = new Hashtable();
+        private readonly AuditManager _auditManager = new AuditManager();
 
-        public DataTable GetAllUsuarios()
+        public DataTable GetAllUsuarios(int userId)
         {
             _params.Clear();
+            _params.Add("@Id", userId);
             _dt = _dbCon.Execute("SP_Users_Select_All", _params);
             return _dt;
         }
@@ -35,8 +38,19 @@ namespace InventoryApp.Data
                     usuarioResponse = new UsuarioResponse
                     {
                         Id = row["Id"] != DBNull.Value ? Convert.ToInt32(row["Id"]) : 0,
-                        RolName = row["RolName"]?.ToString()
+                        RolName = row["RolName"]?.ToString(),
+                        FirstName = row["FirstName"]?.ToString(),
+                        LastName = row["LastName"]?.ToString(),
+                        Email = row["Email"]?.ToString(),
+                        Status = row["Status"] != DBNull.Value && Convert.ToInt32(row["Status"]) == 1,
                     };
+                }
+                if (usuarioResponse != null && usuarioResponse.Id > 0 && usuarioResponse.Status)
+                    _auditManager.InsertAudit(new AuditUser { UserId = usuarioResponse.Id, Table = "Account", Action = "Inicio de sesion", Events = "Inicio de sesion satisfactorio" });
+                if (usuarioResponse != null && !usuarioResponse.Status)
+                { 
+                    string messageError = usuarioResponse.Status ? "satisfactorio" : "fallido, usuario inactivo";
+                    _auditManager.InsertAudit(new AuditUser { UserId = usuarioResponse.Id, Table = "Account", Action = "Inicio de sesion", Events = $"Inicio de sesion {messageError}" });
                 }
             }
 
@@ -46,7 +60,6 @@ namespace InventoryApp.Data
         // Register new user
         public void RegisterUser(Usuario usuario)
         {
-            // Check if the username already exists in the database
             if (IsUsernameExists(usuario.UserName))
             {
                 MessageBox.Show("Username already exists. Please choose a different username.", "Registration Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -55,6 +68,8 @@ namespace InventoryApp.Data
 
             int UserId = 0;
             _params.Clear();
+            _params.Add("@FirstName", usuario.FirstName);
+            _params.Add("@LastName", usuario.LastName);
             _params.Add("@RolName", usuario.RolName);
             _params.Add("@UserName", usuario.UserName);
             _params.Add("@Password", MD5.GetMD5(usuario.Password));
@@ -77,6 +92,37 @@ namespace InventoryApp.Data
                     MessageBox.Show("Failed to register. Please try again.", "Registration Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Account", Action = "Registro de usuario", Events = $"Se ha registrado un nuevo usuario: {usuario.UserName}" });
+        }
+
+        // Update password
+        public void UpdatePassword(int userId, string newPassword)
+        {
+            _params.Clear();
+            _params.Add("@Id", userId);
+            _params.Add("@Password", MD5.GetMD5(newPassword));
+            _dt = _dbCon.Execute("SP_Users_Update_Password", _params);
+            if (_dt != null || _dt.Rows.Count != 0)
+            {
+                MessageBox.Show("Password updated successfully!", "Update Password", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Failed to update password. Please try again.", "Update Password Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Account", Action = "Actualizacion de contraseña", Events = $"Se ha actualizado la contraseña del usuario: {userId}" });
+        }
+
+        // Udpate User Status
+        public void UpdateUserStatus(string username, bool status)
+        {
+            _params.Clear();
+            _params.Add("@UserName", username);
+            _params.Add("@Status", status ? 1 : 0);
+            _dt = _dbCon.Execute("SP_Users_Update_Status", _params);
+
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Account", Action = "Actualizacion de estado de usuario", Events = $"Se ha actualizado el estado del usuario: {username}" });
         }
 
         //Update User
@@ -84,10 +130,12 @@ namespace InventoryApp.Data
         {
             _params.Clear();
             _params.Add("@Id", usuario.Id);
+            _params.Add("@FirstName", usuario.FirstName);
+            _params.Add("@LastName", usuario.LastName);
             _params.Add("@RolName", usuario.RolName);
             _params.Add("@UserName", usuario.UserName);
-            _params.Add("@Password", MD5.GetMD5(usuario.Password));
             _params.Add("@Email", usuario.Email);
+            _params.Add("@Status", usuario.Status ? 1 : 0);
             _dt = _dbCon.Execute("SP_Users_Update", _params);
 
             if (_dt != null || _dt.Rows.Count != 0)
@@ -98,6 +146,7 @@ namespace InventoryApp.Data
             {
                 MessageBox.Show("Failed to update. Please try again.", "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Account", Action = "Actualizacion de usuario", Events = $"Se ha actualizado datos del usuario: {usuario.Id}" });
         }
 
         //Delete user
@@ -114,6 +163,7 @@ namespace InventoryApp.Data
             {
                 MessageBox.Show("Failed to delete user. Please try again.", "Delete User Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Account", Action = "Eliminacion de usuario", Events = $"Se ha eliminado el usuario: {id}" });
         }
 
         // Check if user name already exists

@@ -10,6 +10,7 @@ namespace InventoryApp.Data
         private readonly CustomDataTable _dbCon = new CustomDataTable();
         private DataTable _dt = new DataTable();
         private readonly Hashtable _params = new Hashtable();
+        private readonly AuditManager _auditManager = new AuditManager();
 
         public DataTable SelectProductsAll()
         {
@@ -21,7 +22,7 @@ namespace InventoryApp.Data
         public DataTable SelectProductsById(int id)
         {
             _params.Clear();
-            _params.Add("@Id", id);
+            _params.Add("@ProductId", id);
             _dt = _dbCon.Execute("SP_Products_Select_ByStock", _params);
             return _dt;
         }
@@ -43,6 +44,8 @@ namespace InventoryApp.Data
             _params.Add("@Unit", product.Unit);
             _params.Add("@Category", product.Category);
             _dt = _dbCon.Execute("SP_Products_Insert", _params);
+
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Product", Action = "Insertar producto" });
             return true;
         }
 
@@ -66,6 +69,8 @@ namespace InventoryApp.Data
             _params.Add("@Unit", product.Unit);
             _params.Add("@Category", product.Category);
             _dbCon.Execute("SP_Products_Update", _params);
+
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Product", Action = "Actualizar producto" });
         }
 
         public void UpdateProductByStock(int? productId, int? stock)
@@ -74,6 +79,8 @@ namespace InventoryApp.Data
             _params.Add("@ProductId", productId);
             _params.Add("@Stock", stock);
             _dbCon.Execute("SP_Products_Update_ByStock", _params);
+
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Product", Action = "Actualizar stock producto" });
         }
 
         // Delete Product
@@ -82,6 +89,8 @@ namespace InventoryApp.Data
             _params.Clear();
             _params.Add("@Id", id);
             _dbCon.Execute("SP_Products_Delete", _params);
+
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Product", Action = "Eliminar producto" });
         }
     }
 }

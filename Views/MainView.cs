@@ -1,27 +1,34 @@
-﻿using System;
-using InventoryApp.Data;
-using System.Windows.Forms;
+﻿using InventoryApp.Data;
 using InventoryApp.InventoryApp.dlg;
 using InventoryApp.InventoryApp.Views;
 using InventoryApp.Views;
 using InventoryApp.Views.Dashboard;
+using System;
+using System.Configuration;
+using System.Windows.Forms;
 
 namespace InventoryApp.InventoryApp
 {
     public partial class MainView : Form
     {
         private Form currentForm;
-        public MainView(string username, string rolname)
+        private readonly RolPolicyManager _rolPolicyManager = new RolPolicyManager();
+
+        public MainView(UsuarioResponse usuario)
         {
             InitializeComponent();
-            SwitchForm(new Dashboard());
+            ActivateViewRolPolicy(usuario);
 
-            if (rolname == "Administrador")
+            SwitchForm(new Dashboard());
+            DateTimeOffset nowWithOffset = DateTimeOffset.Now;
+
+            if (usuario.RolName == "Administrador")
                 radioButton6.Visible = true;
 
-            button1.Text = $"Logout ({username} - {rolname})";
+            statusStrip1.ShowItemToolTips = true;
+            statusStrip1.Items.Clear();
+            statusStrip1.Items.Add($"Bienvenido {usuario.FirstName} {usuario.LastName} | Rol: {usuario.RolName} | Version: {ConfigurationManager.AppSettings["AppVersion"].ToString()} | {ConfigurationManager.AppSettings["companyAddress"].ToString()} {nowWithOffset.ToString("yyyy-MM-dd")}");
 
-            // Initialize Cart item counter
             itemCountTimer = new Timer
             {
                 Interval = 1000
@@ -30,22 +37,53 @@ namespace InventoryApp.InventoryApp
             itemCountTimer.Start();
         }
 
+        private void ActivateViewRolPolicy(UsuarioResponse usuario)
+        {
+            var rolPolicies = _rolPolicyManager.SelectRolPolicyByUserl(usuario.Id);
+            foreach (var policy in rolPolicies)
+            {
+                switch (policy.Policy)
+                {
+                    case "Productos":
+                        radioButton1.Visible = true;
+                        break;
+                    case "Categorias":
+                        radioButton2.Visible = true;
+                        break;
+                    case "Ventas":
+                        radioButton3.Visible = true;
+                        break;
+                    case "Transacciones":
+                        radioButton4.Visible = true;
+                        break;
+                    case "Inicio":
+                        radioButton5.Visible = true;
+                        break;
+                    case "Usuarios":
+                        radioButton6.Visible = true;
+                        break;
+                }
+            }
+        }
+
         //NAVIGATION CONTROL
         private void SwitchForm(Form newForm)
         {
-            currentForm?.Hide();
+            if (currentForm != null && !currentForm.IsDisposed)
+            {
+                currentForm.Hide();
+            }
+
             newForm.TopLevel = false;
             newForm.FormBorderStyle = FormBorderStyle.None;
             newForm.Dock = DockStyle.Fill;
-            // Check if panel2 already contains a form
-            if (panel2.Controls.Count > 0)
-            {
-                Control currentFormControl = panel2.Controls[0];
-                currentFormControl.Hide();
-                panel2.Controls.Remove(currentFormControl);
-            }
+
+            panel2.Controls.Clear();
+
             panel2.Controls.Add(newForm);
             newForm.Show();
+
+            panel2.Refresh();
 
             currentForm = newForm;
         }
@@ -98,7 +136,7 @@ namespace InventoryApp.InventoryApp
         // LOGOUT BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure want to logout?", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (MessageBox.Show("Esta seguro que desea cerrar sesion?", "Advertencia!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 UserAuth userauth = new UserAuth();
                 userauth.FormClosed += (s, args) => this.Close();
@@ -112,7 +150,7 @@ namespace InventoryApp.InventoryApp
         {
             CartManager cartManager = new CartManager();
             int cartItemCount = cartManager.GetCartItemCount();
-            radioButton3.Text = "Sale (" + cartItemCount.ToString() + ")";
+            radioButton3.Text = "Ventas (" + cartItemCount.ToString() + ")";
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
@@ -131,6 +169,11 @@ namespace InventoryApp.InventoryApp
             {
                 SwitchForm(new UsuariosView());
             }
+        }
+
+        private void MainView_Load(object sender, EventArgs e)
+        {
+            Text = $"{ConfigurationManager.AppSettings["AppType"].ToString()} - {ConfigurationManager.AppSettings["companyName"].ToString()}, {ConfigurationManager.AppSettings["companyRif"].ToString()}";
         }
     }
 }

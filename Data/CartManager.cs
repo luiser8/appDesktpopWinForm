@@ -12,6 +12,7 @@ namespace InventoryApp.Data
         private readonly CustomDataTable _dbCon = new CustomDataTable();
         private DataTable _dt = new DataTable();
         private readonly Hashtable _params = new Hashtable();
+        private readonly AuditManager _auditManager = new AuditManager();
 
         // Fetch data from Cart
         public DataTable GetCartItems()
@@ -30,6 +31,8 @@ namespace InventoryApp.Data
             _params.Add("@ProductId", cart.ProductId);
             _params.Add("@Quantity", cart.Quantity);
             _dt = _dbCon.Execute("SP_Cart_Update", _params);
+
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Cart", Action = "Actualizar cantidad en cart" });
         }
 
         public decimal GetTotalPrice()
@@ -58,6 +61,8 @@ namespace InventoryApp.Data
             _params.Clear();
             _params.Add(typeDeleting, id);
             _dbCon.Execute("SP_Cart_Delete", _params);
+
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Cart", Action = "Remover cart" });
         }
 
         //Count items on Cart
@@ -126,6 +131,7 @@ namespace InventoryApp.Data
                 _dt = _dbCon.Execute("SP_Cart_Insert", _params);
             }
 
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Cart", Action = "Insercion de cart" });
             return true;
         }
     }

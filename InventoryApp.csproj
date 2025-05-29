@@ -49,9 +49,46 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClosedXML, Version=0.105.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <HintPath>packages\ClosedXML.0.105.0\lib\netstandard2.0\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML.Parser, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1d5f7376574c51ec, processorArchitecture=MSIL">
+      <HintPath>packages\ClosedXML.Parser.2.0.0\lib\netstandard2.0\ClosedXML.Parser.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=3.1.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>packages\DocumentFormat.OpenXml.3.1.1\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml.Framework, Version=3.1.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>packages\DocumentFormat.OpenXml.Framework.3.1.1\lib\net46\DocumentFormat.OpenXml.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="RBush, Version=4.0.0.0, Culture=neutral, PublicKeyToken=c77e27b81f4d0187, processorArchitecture=MSIL">
+      <HintPath>packages\RBush.Signed.4.0.0\lib\net47\RBush.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.Fonts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
+      <HintPath>packages\SixLabors.Fonts.1.0.0\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -62,29 +99,42 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\AuditManager.cs" />
     <Compile Include="Data\CartManager.cs" />
     <Compile Include="Data\CategoryManager.cs" />
     <Compile Include="Data\HistoryManager.cs" />
     <Compile Include="Data\OrdersManager.cs" />
     <Compile Include="Data\ProductManager.cs" />
     <Compile Include="Data\RolManager.cs" />
+    <Compile Include="Data\RolPolicyManager.cs" />
     <Compile Include="Data\TransactionManager.cs" />
     <Compile Include="Data\AccountManager.cs" />
+    <Compile Include="Models\AuditUser.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\ComboBoxItem.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Rol.cs" />
+    <Compile Include="Models\RolPolicy.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Utility\CustomDataTable.cs" />
+    <Compile Include="Utility\ExcelGeneration.cs" />
     <Compile Include="Utility\Md5.cs" />
     <Compile Include="Utility\PointOfSale.cs" />
     <Compile Include="Utility\TransactionIdGenerator.cs" />
-    <Compile Include="Utility\UserSession.cs" />
+    <Compile Include="Models\UserSession.cs" />
+    <Compile Include="Views\Audit\AuditView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Audit\AuditView.Designer.cs">
+      <DependentUpon>AuditView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Dashboard\Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -172,6 +222,12 @@
     <Compile Include="Views\UserAuth.Designer.cs">
       <DependentUpon>UserAuth.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Usuarios\UsuariosFormNewPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Usuarios\UsuariosFormNewPassword.Designer.cs">
+      <DependentUpon>UsuariosFormNewPassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Usuarios\UsuariosView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +240,9 @@
     <Compile Include="Views\Usuarios\UsuariosForm.Designer.cs">
       <DependentUpon>UsuariosForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\Audit\AuditView.resx">
+      <DependentUpon>AuditView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Dashboard\Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
     </EmbeddedResource>
@@ -236,12 +295,16 @@
     <EmbeddedResource Include="Views\UserAuth.resx">
       <DependentUpon>UserAuth.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Usuarios\UsuariosFormNewPassword.resx">
+      <DependentUpon>UsuariosFormNewPassword.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Usuarios\UsuariosView.resx">
       <DependentUpon>UsuariosView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Usuarios\UsuariosForm.resx">
       <DependentUpon>UsuariosForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

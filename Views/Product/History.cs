@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using InventoryApp.Data;
+using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
@@ -6,33 +7,32 @@ namespace InventoryApp.InventoryApp.dlg
 {
     public partial class History : Form
     {
-        private readonly int productId;
+        private readonly HistoryManager _historyManager = new HistoryManager();
+        private readonly int _productId;
         public History(int id)
         {
             InitializeComponent();
-            productId = id;
+            _productId = id;
             DisplayHistory();
+        }
+
+        private void SetDatGridViewColumns(DataTable dataTable)
+        {
+            dataGridView1.DataSource = dataTable;
+            dataGridView1.Columns["ProductId"].Visible = false;
+            dataGridView1.Columns["Status"].Visible = false;
         }
 
         //FETCH DATA FROM HISTORY TABLE
         private void DisplayHistory()
         {
-            using (SqlConnection con = ConnectionManager.GetConnection())
+            if (_productId <= 0)
             {
-                con.Open();
-
-                using (SqlCommand cmd = new SqlCommand("SELECT ProductID, [AddedStocks], [Date] FROM History WHERE ProductID = @id", con))
-                {
-                    cmd.Parameters.AddWithValue("@id", productId);
-
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    dataGridView1.DataSource = dt;
-                }
-
-                con.Close();
+                MessageBox.Show("Invalid Product ID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+
+            SetDatGridViewColumns(_historyManager.SelectHistory(_productId));
         }
     }
 }

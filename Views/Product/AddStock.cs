@@ -10,12 +10,14 @@ namespace InventoryApp
         private readonly ProductManager _productManager = new ProductManager();
         private readonly HistoryManager _historyManager = new HistoryManager();
 
-        readonly private string itemName;
+        private readonly int _productId;
+        private readonly string _itemName;
 
-        public AddStock(string name)
+        public AddStock(int productId, string name)
         {
             InitializeComponent();
-            itemName = name;
+            _itemName = name;
+            _productId = productId;
             label3.Text = name;
         }
 
@@ -23,18 +25,8 @@ namespace InventoryApp
         private void button1_Click(object sender, EventArgs e)
         {
             int currentStock = 0;
-            int productId = 0;
-            var productIdByName = _productManager.SelectProductsByName(itemName);
-            var currentStockData = _productManager.SelectProductsById(productId);
+            var currentStockData = _productManager.SelectProductsById(_productId);
             int addedStocks = Convert.ToInt32(textBox2.Text);
-
-            if (productIdByName != null || productIdByName.Rows.Count != 0)
-            {
-                foreach (DataRow row in productIdByName.Rows)
-                {
-                    productId = Convert.ToInt32(row["Id"]);
-                }
-            }
 
             if (currentStockData != null || currentStockData.Rows.Count != 0)
             {
@@ -44,8 +36,8 @@ namespace InventoryApp
                 }
             }
 
-            _productManager.UpdateProductByStock(productId, currentStock + addedStocks);
-            _historyManager.InsertHistory(new Models.History { ProductID = productId, AddedStocks = addedStocks });
+            _productManager.UpdateProductByStock(_productId, currentStock + addedStocks);
+            _historyManager.InsertHistory(new Models.History { ProductID = _productId, AddedStocks = addedStocks });
 
             DialogResult = DialogResult.OK;
         }

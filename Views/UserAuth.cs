@@ -1,6 +1,7 @@
 ﻿using InventoryApp.Data;
 using InventoryApp.InventoryApp;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Windows.Forms;
 
@@ -9,12 +10,18 @@ namespace InventoryApp.Views
     public partial class UserAuth : Form
     {
         private readonly AccountManager accountManager;
+        private readonly int attempsValue = Convert.ToInt16(ConfigurationManager.AppSettings["attempts"].ToString());
+        private static readonly Dictionary<string, int> attempsDic = new Dictionary<string, int>();
+        private bool isBlocked = false;
 
         public UserAuth()
         {
             InitializeComponent();
             accountManager = new AccountManager();
-            label3.Text = ConfigurationManager.AppSettings["company"].ToString();
+            label3.Text = ConfigurationManager.AppSettings["companyName"].ToString();
+            label4.Text = $"Rif: {ConfigurationManager.AppSettings["companyRif"].ToString()}";
+            label5.Text = $"Localidad: {ConfigurationManager.AppSettings["companyAddress"].ToString()}";
+            label6.Text = $"Version: {ConfigurationManager.AppSettings["AppVersion"].ToString()}";
         }
 
         // Validate Users Credentials
@@ -32,17 +39,46 @@ namespace InventoryApp.Views
             string password = textBox2.Text;
             var usuarioSession = ValidateUserCredentials(username, password);
 
-            if (usuarioSession != null)
+            if (usuarioSession != null && usuarioSession.Status)
             {
                 UserSession.SessionUID = usuarioSession.Id;
-                MainView mainpage = new MainView(username, usuarioSession.RolName);
-                mainpage.FormClosed += (s, args) => this.Close();
+                if (attempsDic.ContainsKey(username))
+                    attempsDic.Remove(username);
+                MainView mainpage = new MainView(usuarioSession);
+                mainpage.FormClosed += (s, args) => Close();
                 mainpage.Show();
                 Hide();
             }
+            else if (usuarioSession != null && !usuarioSession.Status)
+            {
+                if (attempsDic.ContainsKey(username))
+                    attempsDic[username]++;
+                else
+                    attempsDic[username] = 1;
+                MessageBox.Show($"Usuario se encuentra inhabilitado. Comuniquese con su Administrador..", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             else
             {
-                MessageBox.Show("Invalid username or password. Please try again.", "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (attempsDic.ContainsKey(username))
+                    attempsDic[username]++;
+                else
+                    attempsDic[username] = 1;
+                MessageBox.Show($"Nombre de usuario o contraseña no válidos. Inténtalo de nuevo, Intentos: {attempsDic[username]}..", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            if (attempsDic.ContainsKey(username) && attempsDic[username] >= attempsValue)
+            {
+                if (!isBlocked)
+                {
+                    accountManager.UpdateUserStatus(username, false);
+                    isBlocked = true;
+                }
+                if (attempsDic.ContainsKey(username))
+                {
+                    attempsDic.Remove(username);
+                    isBlocked = false;
+                }
+                MessageBox.Show($"Usuario bloqueado por intentos({attempsValue}) fallidos..", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -104,5 +140,10 @@ namespace InventoryApp.Views
             
         }
         #endregion
+
+        private void UserAuth_Load(object sender, EventArgs e)
+        {
+            Text = $"Inicio de sesiòn en {ConfigurationManager.AppSettings["companyName"].ToString()}";
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Data;
 using InventoryApp.Data;
 using System.Windows.Forms;
 using InventoryApp.InventoryApp.dlg;
+using InventoryApp.Utility;
 
 namespace InventoryApp
 {
@@ -116,7 +117,8 @@ namespace InventoryApp
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 string name = dataGridView1.SelectedRows[0].Cells["name"].Value.ToString();
-                AddStock dlg = new AddStock(name);
+                int productId = (int)dataGridView1.SelectedRows[0].Cells["Id"].Value;
+                AddStock dlg = new AddStock(productId, name);
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     dataGridView1.DataSource = productManager.SelectProductsAll();
@@ -181,6 +183,21 @@ namespace InventoryApp
                     MessageBox.Show("Product out of stock.");
                 }
             }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ExcelGeneration.ExportAndOpen(productManager.SelectProductsAll(), "Productos");
+                MessageBox.Show("Data exported successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
+
         }
     }
 }

@@ -83,12 +83,46 @@ VALUES
 INSERT INTO [dbo].[Rol] ([RolName])
 VALUES
 ('Administrador'),
-('Invitado'),
+('Contador'),
 ('Operador'),
 ('Vendedor');
 
 -- Insert Usuario
-INSERT INTO [dbo].[Account] ([RolId], [UserName], [Password])
+INSERT INTO [dbo].[Account] ([RolId], [FirstName], [LastName], [UserName], [Password], [Email])
 VALUES
-(1, 'luis', '91c0c59c8f6fc9aa2dc99a89f2fd0ab5'),
-(2, 'jose', '91c0c59c8f6fc9aa2dc99a89f2fd0ab5');
+(1, 'Luis Eduardo', 'Rondon', 'luis', '91c0c59c8f6fc9aa2dc99a89f2fd0ab5', 'leduardo.rondon@gmail.com'),
+(2, 'Jose Luis', 'Diaz', 'jose', '91c0c59c8f6fc9aa2dc99a89f2fd0ab5', 'jose@gmail.com');
+
+-- Insert Policies
+INSERT INTO [dbo].[Policies] ([Name], [Description])
+VALUES
+('Inicio', 'Acceso al Inicio'),
+('Productos', 'Acceso a Productos'),
+('Categorias', 'Acceso a Categorias'),
+('Ventas', 'Acceso a Ventas'),
+('Transacciones', 'Acceso a Transacciones'),
+('Usuarios', 'Acceso a Usuarios');
+
+-- Insert Rol Policies
+INSERT INTO [dbo].[RolPolicies] ([RolId], [PolicyId])
+VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 4),
+(2, 5),
+(3, 1),
+(3, 2),
+(3, 3),
+(3, 4),
+(4, 1),
+(4, 2),
+(4, 3),
+(4, 4),
+(4, 5);
