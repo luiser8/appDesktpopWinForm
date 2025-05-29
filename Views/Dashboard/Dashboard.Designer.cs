@@ -165,7 +165,7 @@
             this.ClientSize = new System.Drawing.Size(774, 501);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Dashboard";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inicio";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Dashboard_Load);

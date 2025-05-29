@@ -22,9 +22,6 @@ namespace InventoryApp.InventoryApp
             SwitchForm(new Dashboard());
             DateTimeOffset nowWithOffset = DateTimeOffset.Now;
 
-            if (usuario.RolName == "Administrador")
-                radioButton6.Visible = true;
-
             statusStrip1.ShowItemToolTips = true;
             statusStrip1.Items.Clear();
             statusStrip1.Items.Add($"Bienvenido {usuario.FirstName} {usuario.LastName} | Rol: {usuario.RolName} | Version: {ConfigurationManager.AppSettings["AppVersion"].ToString()} | {ConfigurationManager.AppSettings["companyAddress"].ToString()} {nowWithOffset.ToString("yyyy-MM-dd")}");
@@ -79,12 +76,10 @@ namespace InventoryApp.InventoryApp
             newForm.Dock = DockStyle.Fill;
 
             panel2.Controls.Clear();
-
             panel2.Controls.Add(newForm);
-            newForm.Show();
-
             panel2.Refresh();
 
+            newForm.Show();
             currentForm = newForm;
         }
 
@@ -139,7 +134,7 @@ namespace InventoryApp.InventoryApp
             if (MessageBox.Show("Esta seguro que desea cerrar sesion?", "Advertencia!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 UserAuth userauth = new UserAuth();
-                userauth.FormClosed += (s, args) => this.Close();
+                userauth.FormClosed += (s, args) => Close();
                 userauth.Show();
                 Hide();
             }
