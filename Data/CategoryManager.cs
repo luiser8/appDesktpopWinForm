@@ -28,7 +28,7 @@ namespace InventoryApp.Data
             _params.Add("@CategoryItem", category.CategoryItem);
             _dbCon.Execute("SP_Categories_Insert", _params);
 
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Categoria", Action = "Insertar categoria" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Categoria", Action = "Insertar categoria", Events = "Inserto una nueva categoria" });
         }
 
         // Update Category
@@ -39,7 +39,7 @@ namespace InventoryApp.Data
             _params.Add("@CategoryItem", category.CategoryItem);
             _dbCon.Execute("SP_Categories_Update", _params);
 
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Categoria", Action = "Actualizar categoria" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Categoria", Action = "Actualizar categoria", Events = "Actualizo una categoria" });
         }
 
         // Delete Category
@@ -49,7 +49,7 @@ namespace InventoryApp.Data
             _params.Add("@Id", id);
             _dbCon.Execute("SP_Categories_Delete", _params);
 
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Categoria", Action = "Eliminar categoria" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Categoria", Action = "Eliminar categoria", Events = "Elimino una categoria" });
         }
     }
 }

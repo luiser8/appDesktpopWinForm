@@ -42,7 +42,7 @@ namespace InventoryApp.Data
                     Quantity = quantity,
                 });
             }
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Transaction", Action = "Insertar item transaccion" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Transaction", Action = "Insertar item transaccion", Events = "Insertar item a la transaccion" });
         }
 
         // Saved Transaction
@@ -75,7 +75,7 @@ namespace InventoryApp.Data
                     throw new Exception(ex.Message);
                 }
             }
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Transaction", Action = "Insertar transaccion" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Transaction", Action = "Insertar transaccion", Events = "Insertar Transaccion" });
         }
     }
 }

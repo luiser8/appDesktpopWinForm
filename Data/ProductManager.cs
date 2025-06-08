@@ -45,7 +45,7 @@ namespace InventoryApp.Data
             _params.Add("@Category", product.Category);
             _dt = _dbCon.Execute("SP_Products_Insert", _params);
 
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Product", Action = "Insertar producto" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Product", Action = "Insertar producto", Events = "Inserto un nuevo producto" });
             return true;
         }
 
@@ -70,7 +70,7 @@ namespace InventoryApp.Data
             _params.Add("@Category", product.Category);
             _dbCon.Execute("SP_Products_Update", _params);
 
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Product", Action = "Actualizar producto" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Product", Action = "Actualizar producto", Events = "Actualizo un producto" });
         }
 
         public void UpdateProductByStock(int? productId, int? stock)
@@ -80,7 +80,7 @@ namespace InventoryApp.Data
             _params.Add("@Stock", stock);
             _dbCon.Execute("SP_Products_Update_ByStock", _params);
 
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Product", Action = "Actualizar stock producto" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Product", Action = "Actualizar stock producto", Events = "Actualizo stock de un producto" });
         }
 
         // Delete Product
@@ -90,7 +90,7 @@ namespace InventoryApp.Data
             _params.Add("@Id", id);
             _dbCon.Execute("SP_Products_Delete", _params);
 
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Product", Action = "Eliminar producto" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Product", Action = "Eliminar producto", Events = "Elimino un producto" });
         }
     }
 }

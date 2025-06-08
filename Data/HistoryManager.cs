@@ -18,7 +18,7 @@ namespace InventoryApp.Data
             _params.Add("@AddedStocks", history.AddedStocks);
             _dbCon.Execute("SP_History_Insert", _params);
 
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "History", Action = "Insertar history" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "History", Action = "Insertar history", Events = "Insertar History" });
         }
 
         public DataTable SelectHistory(int productId)

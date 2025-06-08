@@ -32,7 +32,7 @@ namespace InventoryApp.Data
             _params.Add("@Quantity", cart.Quantity);
             _dt = _dbCon.Execute("SP_Cart_Update", _params);
 
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Cart", Action = "Actualizar cantidad en cart" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Cart", Action = "Actualizar cantidad en cart", Events = "Actualizacion de la cantidad de Cart" });
         }
 
         public decimal GetTotalPrice()
@@ -62,7 +62,7 @@ namespace InventoryApp.Data
             _params.Add(typeDeleting, id);
             _dbCon.Execute("SP_Cart_Delete", _params);
 
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Cart", Action = "Remover cart" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Cart", Action = "Remover cart", Events = "Remover Cart" });
         }
 
         //Count items on Cart
@@ -131,7 +131,7 @@ namespace InventoryApp.Data
                 _dt = _dbCon.Execute("SP_Cart_Insert", _params);
             }
 
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Cart", Action = "Insercion de cart" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Cart", Action = "Insercion de cart", Events = "Insertar Cart" });
             return true;
         }
     }

@@ -1,4 +1,5 @@
-﻿using InventoryApp.Models;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using InventoryApp.Models;
 using InventoryApp.Utility;
 using System;
 using System.Collections;
@@ -60,12 +61,13 @@ namespace InventoryApp.Data
         // Register new user
         public void RegisterUser(Usuario usuario)
         {
-            if (IsUsernameExists(usuario.UserName))
+            bool checkExistsUser = IsUsernameExists(usuario.UserName);
+            if (checkExistsUser)
             {
                 MessageBox.Show("Username already exists. Please choose a different username.", "Registration Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
             }
-
+            else
+            {
             int UserId = 0;
             _params.Clear();
             _params.Add("@FirstName", usuario.FirstName);
@@ -94,6 +96,7 @@ namespace InventoryApp.Data
             }
 
             _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Account", Action = "Registro de usuario", Events = $"Se ha registrado un nuevo usuario: {usuario.UserName}" });
+            }
         }
 
         // Update password
@@ -172,13 +175,17 @@ namespace InventoryApp.Data
             _params.Clear();
             _params.Add("@UserName", username);
             _dt = _dbCon.Execute("SP_Users_Select_ByName", _params);
+            bool exists = false;
 
-            if (_dt != null || _dt.Rows.Count <= 0)
+            if (_dt != null && _dt.Rows.Count >= 0)
             {
-                return false;
+                foreach (DataRow row in _dt.Rows)
+                {
+                    exists = Convert.ToInt16(row["ValueExists"]) == 1;
+                }
             }
 
-            return true;
+            return exists;
         }
     }
 }

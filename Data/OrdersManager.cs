@@ -21,7 +21,7 @@ namespace InventoryApp.Data
             _params.Add("@Quantity", order.Quantity);
             _dt = _dbCon.Execute("SP_Orders_Insert", _params);
 
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Order", Action = "Insertar order" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Order", Action = "Insertar order", Events = "Insertar Order" });
         }
     }
 }
