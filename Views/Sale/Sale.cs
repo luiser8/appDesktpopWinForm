@@ -13,6 +13,15 @@ namespace InventoryApp.InventoryApp.Views
             InitializeComponent();
             cartManager = new CartManager();
             DisplayCartItem();
+            SetDatGridViewColumns();
+        }
+
+        private void SetDatGridViewColumns()
+        {
+            dataGridView1.Columns["ProductId"].HeaderText = "Id";
+            dataGridView1.Columns["Name"].HeaderText = "Producto";
+            dataGridView1.Columns["Price"].HeaderText = "Precio";
+            dataGridView1.Columns["Quantity"].HeaderText = "Cantidad";
         }
 
         //FETCH DATA FROM CATEGORY DATABASE
@@ -36,7 +45,7 @@ namespace InventoryApp.InventoryApp.Views
             }
             else
             {
-                MessageBox.Show("Cart is empty.", "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("El carrito está vacío.", "Carro vacío", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -56,7 +65,7 @@ namespace InventoryApp.InventoryApp.Views
             }
             else
             {
-                MessageBox.Show("Cart is empty.", "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("El carrito está vacío.", "Carro vacío", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -67,7 +76,7 @@ namespace InventoryApp.InventoryApp.Views
             {
                 int productId = (int)dataGridView1.SelectedRows[0].Cells["ProductId"].Value;
 
-                if (MessageBox.Show("Are you sure want to remove this item from your cart?", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                if (MessageBox.Show("¿Estás seguro de que deseas eliminar este artículo de tu carrito?", "Advertencia!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     cartManager.RemoveCartItem(productId, "@ProductId");
                     DisplayCartItem();
@@ -75,7 +84,7 @@ namespace InventoryApp.InventoryApp.Views
             }
             else
             {
-                MessageBox.Show("Cart is empty.", "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("El carrito está vacío.", "Carro vacío", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

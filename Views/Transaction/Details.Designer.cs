@@ -42,7 +42,7 @@
             this.groupBox1.Size = new System.Drawing.Size(593, 369);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "ProductList";
+            this.groupBox1.Text = "Productos";
             // 
             // dataGridView1
             // 
@@ -72,7 +72,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Details";
+            this.Text = "Detalles";
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

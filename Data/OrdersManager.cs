@@ -23,5 +23,13 @@ namespace InventoryApp.Data
 
             _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Order", Action = "Insertar order", Events = "Insertar Order" });
         }
+
+        public DataTable GetOrdersByTransactionId(string transactionId)
+        {
+            _params.Clear();
+            _params.Add("@TransactionId", transactionId);
+            _dt = _dbCon.Execute("SP_Orders_Select_ByTransactionId", _params);
+            return _dt;
+        }
     }
 }

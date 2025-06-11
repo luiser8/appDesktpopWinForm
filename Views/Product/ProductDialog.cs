@@ -180,12 +180,11 @@ namespace InventoryApp
         {
             if (string.IsNullOrEmpty(textBox1.Text))
             {
-                errorProvider1.SetError(textBox1, "Product name is required.");
+                errorProvider1.SetError(textBox1, "El nombre del producto es obligatorio.");
             }
             else
             {
                 errorProvider1.SetError(textBox1, "");
-                //errorProvider1.Clear();
             }
         }
 
@@ -193,12 +192,11 @@ namespace InventoryApp
         {
             if (string.IsNullOrEmpty(textBox3.Text))
             {
-                errorProvider1.SetError(textBox3, "Price is required.");
+                errorProvider1.SetError(textBox3, "Se requiere precio.");
             }
             else
             {
                 errorProvider1.SetError(textBox3, "");
-                //errorProvider1.Clear();
             }
         }
 
@@ -206,12 +204,11 @@ namespace InventoryApp
         {
             if (string.IsNullOrEmpty(textBox2.Text))
             {
-                errorProvider1.SetError(textBox2, "Stock is required.");
+                errorProvider1.SetError(textBox2, "Se requiere stock.");
             }
             else
             {
                 errorProvider1.SetError(textBox2, "");
-                //errorProvider1.Clear();
             }
         }
 
@@ -219,12 +216,11 @@ namespace InventoryApp
         {
             if (string.IsNullOrEmpty(textBox4.Text))
             {
-                errorProvider1.SetError(textBox4, "Unit is required.");
+                errorProvider1.SetError(textBox4, "Se requiere unidad.");
             }
             else
             {
                 errorProvider1.SetError(textBox4, "");
-                //errorProvider1.Clear();
             }
         }
 
@@ -232,12 +228,11 @@ namespace InventoryApp
         {
             if (string.IsNullOrEmpty(comboBox1.Text))
             {
-                errorProvider1.SetError(comboBox1, "Category is required.");
+                errorProvider1.SetError(comboBox1, "Se requiere categoría.");
             }
             else
             {
                 errorProvider1.SetError(comboBox1, "");
-                //errorProvider1.Clear();
             }
         }
         #endregion

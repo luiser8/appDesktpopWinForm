@@ -2,6 +2,7 @@
 using InventoryApp.Data;
 using System.Windows.Forms;
 using System.Data;
+using InventoryApp.Models;
 
 namespace InventoryApp
 {
@@ -9,6 +10,7 @@ namespace InventoryApp
     {
         private readonly CartManager _cartManager = new CartManager();
         private readonly ProductManager _productManager = new ProductManager();
+        private readonly AuditManager _auditManager = new AuditManager();
 
         private readonly int productId;
         public Quantity(int quantity, int productId)
@@ -77,14 +79,21 @@ namespace InventoryApp
                 textBox2.Text = value.ToString();
             } else
             {
-                MessageBox.Show("Stock limit reached.");
+                MessageBox.Show("Se alcanzó el límite de existencias.");
             }
         }
 
         private void UpdateQuantityInCart()
         {
             string quantity = textBox2.Text;
-            _cartManager.UpdateQuantityInCart(new Models.Cart { ProductId = productId, Quantity = Convert.ToInt32(quantity) });
+            _cartManager.UpdateQuantityInCart(new Cart { ProductId = productId, Quantity = Convert.ToInt32(quantity) });
+            _auditManager.InsertAudit(new AuditUser
+            {
+                UserId = UserSession.SessionUID,
+                Table = "Cart",
+                Action = "Actualizar cantidad en cart",
+                Events = "Actualizacion de la cantidad de Cart"
+            });
         }
     }
 }

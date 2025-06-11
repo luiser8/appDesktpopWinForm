@@ -41,13 +41,13 @@
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.usuariosgrp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -171,14 +171,22 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(154, 162);
+            this.textBox3.Location = new System.Drawing.Point(154, 165);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(356, 20);
             this.textBox3.TabIndex = 6;
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(154, 136);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.PasswordChar = '*';
+            this.textBox2.Size = new System.Drawing.Size(356, 20);
+            this.textBox2.TabIndex = 5;
+            // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(154, 98);
+            this.textBox1.Location = new System.Drawing.Point(154, 103);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(356, 20);
             this.textBox1.TabIndex = 4;
@@ -201,6 +209,16 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Correo";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(32, 132);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(61, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Contraseña";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -214,24 +232,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 132);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Contraseña";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(154, 129);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(356, 20);
-            this.textBox2.TabIndex = 5;
             // 
             // UsuariosForm
             // 

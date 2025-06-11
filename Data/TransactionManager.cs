@@ -52,7 +52,7 @@ namespace InventoryApp.Data
             {
                 if (transaction == null)
                 {
-                    throw new ArgumentNullException(nameof(transaction), "Transaction cannot be null");
+                    throw new ArgumentNullException(nameof(transaction), "La transacción no puede ser nula");
                 }
 
                 _productManager.UpdateProductByStock(null, null);

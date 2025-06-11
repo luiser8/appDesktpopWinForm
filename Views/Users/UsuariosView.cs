@@ -24,6 +24,14 @@ namespace InventoryApp.InventoryApp.Views
             dataGridView1.Columns["RolId"].Visible = false;
             dataGridView1.Columns["Password"].Visible = false;
             dataGridView1.Columns["Status"].Visible = false;
+
+            dataGridView1.Columns["FirstName"].HeaderText = "Nombres";
+            dataGridView1.Columns["LastName"].HeaderText = "Apellidos";
+            dataGridView1.Columns["Username"].HeaderText = "Usuario";
+            dataGridView1.Columns["CreatedAt"].HeaderText = "Creacion";
+            dataGridView1.Columns["Email"].HeaderText = "Correo";
+            dataGridView1.Columns["RolName"].HeaderText = "Rol";
+            dataGridView1.Columns["StatusString"].HeaderText = "Estado";
         }
 
         //ADD BUTTON - Usuario

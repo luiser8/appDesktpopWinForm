@@ -13,6 +13,7 @@ namespace InventoryApp.InventoryApp.dlg
             InitializeComponent();
             transactionManager = new TransactionManager();
             DisplayTransaction();
+            SetDatGridViewColumns();
         }
 
         //FETCH DATA FROM TRANSACTION TABLE
@@ -22,20 +23,16 @@ namespace InventoryApp.InventoryApp.dlg
             
             var dt = transactionManager.SelectTransactionsAll(currentUID);
             dataGridView1.DataSource = dt;
-            /*using (SqlConnection con = ConnectionManager.GetConnection())
-            {
-                con.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT Date, Subtotal, DiscountPercent, DiscountAmount, Total, Change, TransactionId FROM [Transactions] WHERE Uid = @Uid", con))
-                {
-                    cmd.Parameters.AddWithValue("@Uid", currentUID);
+        }
 
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    dataGridView1.DataSource = dt;
-                }
-                con.Close();
-            }*/
+        private void SetDatGridViewColumns()
+        {
+            dataGridView1.Columns["TransactionId"].HeaderText = "Id";
+            dataGridView1.Columns["Date"].HeaderText = "Fecha";
+            dataGridView1.Columns["Subtotal"].HeaderText = "Sub Total";
+            dataGridView1.Columns["DiscountPercent"].HeaderText = "Porcentaje descuento";
+            dataGridView1.Columns["DiscountAmount"].HeaderText = "Porcentaje Cantidad";
+            dataGridView1.Columns["Change"].HeaderText = "Cambio";
         }
 
         //CELL DOUBLE CLICK EVENT FOR OPENING DETAILS

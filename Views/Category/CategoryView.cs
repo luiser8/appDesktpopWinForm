@@ -5,12 +5,19 @@ namespace InventoryApp.InventoryApp.Views
 {
     public partial class CategoryView : Form
     {
-        private readonly CategoryManager categoryManager;
+        private readonly CategoryManager categoryManager = new CategoryManager();
         public CategoryView()
         {
             InitializeComponent();
-            categoryManager = new CategoryManager();
             dataGridView1.DataSource = categoryManager.GetCategories();
+            SetDatGridViewColumns();
+        }
+
+        private void SetDatGridViewColumns()
+        {
+            dataGridView1.Columns["CategoryItem"].HeaderText = "Nombre";
+            dataGridView1.Columns["StatusString"].HeaderText = "Estado";
+            dataGridView1.Columns["CreatedAt"].HeaderText = "Creacion";
         }
 
         //ADD BUTTON - Category

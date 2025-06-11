@@ -45,7 +45,7 @@
             this.groupBox1.Size = new System.Drawing.Size(746, 456);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Transaction History";
+            this.groupBox1.Text = "Historial de transacciones";
             // 
             // dataGridView1
             // 
@@ -77,7 +77,7 @@
             this.MinimizeBox = false;
             this.Name = "Transaction";
             this.ShowIcon = false;
-            this.Text = "Transaction";
+            this.Text = "Transacciones";
             this.Load += new System.EventHandler(this.Transaction_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

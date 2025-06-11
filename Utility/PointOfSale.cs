@@ -81,7 +81,7 @@ namespace InventoryApp.Utility
             // Validate if there is enough cash
             if (cash < total)
             {
-                MessageBox.Show("Not enough cash to complete the transaction.");
+                MessageBox.Show("No hay suficiente efectivo para completar la transacción.");
                 return false;
             }
 
@@ -110,7 +110,7 @@ namespace InventoryApp.Utility
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occurred while saving the transaction: " + ex.Message);
+                MessageBox.Show("Se produjo un error al guardar la transacción: " + ex.Message);
                 return false;
             }
         }

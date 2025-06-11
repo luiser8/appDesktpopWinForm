@@ -9,18 +9,26 @@ namespace InventoryApp
 {
     public partial class ProductView : Form
     {
-        private readonly ProductManager productManager;
-        private readonly CategoryManager categoryManager;
-        private readonly CartManager cartManager;
+        private readonly ProductManager productManager = new ProductManager();
+        private readonly CategoryManager categoryManager = new CategoryManager();
+        private readonly CartManager cartManager = new CartManager();
 
         public ProductView()
         {
             InitializeComponent();
-            productManager = new ProductManager();
-            categoryManager = new CategoryManager();
-            cartManager = new CartManager();
             dataGridView1.DataSource = productManager.SelectProductsAll();
             AddToCart();
+            SetDatGridViewColumns();
+        }
+
+        private void SetDatGridViewColumns()
+        {
+            dataGridView1.Columns["Name"].HeaderText = "Nombre";
+            dataGridView1.Columns["Price"].HeaderText = "Precio";
+            dataGridView1.Columns["Unit"].HeaderText = "Unidad";
+            dataGridView1.Columns["Category"].HeaderText = "Categoria";
+            dataGridView1.Columns["StatusString"].HeaderText = "Estado";
+            dataGridView1.Columns["CreatedAt"].HeaderText = "Creacion";
         }
 
         //SEARCH AND DISPLAY RESULTS
@@ -88,7 +96,7 @@ namespace InventoryApp
             }
             else
             {
-                MessageBox.Show("No product is available for editing.", "Empty!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No hay ningún producto disponible para editar.", "Vacio!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -99,7 +107,7 @@ namespace InventoryApp
             {
                 int id = (int)dataGridView1.SelectedRows[0].Cells["Id"].Value;
 
-                if (MessageBox.Show("Are you sure want to delete this item?", "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                if (MessageBox.Show("¿Estás segura de que quieres eliminar este artículo?", "Advertencia!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     productManager.DeleteProduct(id);
                     dataGridView1.DataSource = productManager.SelectProductsAll();
@@ -107,7 +115,7 @@ namespace InventoryApp
             }
             else
             {
-                MessageBox.Show("Please select a product to delete.", "Empty!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Seleccione un producto para eliminar.", "Vacio!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -126,7 +134,7 @@ namespace InventoryApp
             }
             else
             {
-                MessageBox.Show("No products are available for adding stock.", "Empty!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No hay productos disponibles para agregar stock.", "Vacio!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -141,7 +149,7 @@ namespace InventoryApp
             }
             else
             {
-                MessageBox.Show("No product history is available.", "Empty!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No hay ningún historial de producto disponible.", "Vacio!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -150,7 +158,7 @@ namespace InventoryApp
         {
             DataGridViewButtonColumn buttonColumn = new DataGridViewButtonColumn
             {
-                Text = "Add",
+                Text = "Agregar",
                 UseColumnTextForButtonValue = true
             };
             dataGridView1.Columns.Add(buttonColumn);
@@ -175,12 +183,12 @@ namespace InventoryApp
                     bool itemAdded = cartManager.AddItemToCart(new Models.Cart { ProductId = productId, Name = name, Price = price, Quantity = 1 });
                     if (itemAdded)
                     {
-                        MessageBox.Show("Product added to cart.");
+                        MessageBox.Show("Producto añadido al carrito.");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Product out of stock.");
+                    MessageBox.Show("Producto agotado.");
                 }
             }
         }
@@ -190,11 +198,11 @@ namespace InventoryApp
             try
             {
                 ExcelGeneration.ExportAndOpen(productManager.SelectProductsAll(), "Productos");
-                MessageBox.Show("Data exported successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Datos exportados exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error exporting data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al exportar datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw;
             }
 

@@ -17,6 +17,7 @@ namespace InventoryApp.InventoryApp
         public MainView(UsuarioResponse usuario)
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
             ActivateViewRolPolicy(usuario);
 
             SwitchForm(new Dashboard());

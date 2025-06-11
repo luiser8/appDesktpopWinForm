@@ -28,7 +28,7 @@ namespace InventoryApp.InventoryApp.dlg
         {
             if (_productId <= 0)
             {
-                MessageBox.Show("Invalid Product ID", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("ID de producto no válido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

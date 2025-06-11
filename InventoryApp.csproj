@@ -177,7 +177,6 @@
     <Compile Include="Views\Category\CartDialog.Designer.cs">
       <DependentUpon>CartDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data\ConnectionManager.cs" />
     <Compile Include="Views\MainView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -216,28 +215,28 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\UserAuth.cs">
+    <Compile Include="Views\Auth\UserAuth.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\UserAuth.Designer.cs">
+    <Compile Include="Views\Auth\UserAuth.Designer.cs">
       <DependentUpon>UserAuth.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Usuarios\UsuariosFormNewPassword.cs">
+    <Compile Include="Views\Users\UsuariosFormNewPassword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Usuarios\UsuariosFormNewPassword.Designer.cs">
+    <Compile Include="Views\Users\UsuariosFormNewPassword.Designer.cs">
       <DependentUpon>UsuariosFormNewPassword.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Usuarios\UsuariosView.cs">
+    <Compile Include="Views\Users\UsuariosView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Usuarios\UsuariosView.Designer.cs">
+    <Compile Include="Views\Users\UsuariosView.Designer.cs">
       <DependentUpon>UsuariosView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Usuarios\UsuariosForm.cs">
+    <Compile Include="Views\Users\UsuariosForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Usuarios\UsuariosForm.Designer.cs">
+    <Compile Include="Views\Users\UsuariosForm.Designer.cs">
       <DependentUpon>UsuariosForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Views\Audit\AuditView.resx">
@@ -292,16 +291,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Views\UserAuth.resx">
+    <EmbeddedResource Include="Views\Auth\UserAuth.resx">
       <DependentUpon>UserAuth.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Usuarios\UsuariosFormNewPassword.resx">
+    <EmbeddedResource Include="Views\Users\UsuariosFormNewPassword.resx">
       <DependentUpon>UsuariosFormNewPassword.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Usuarios\UsuariosView.resx">
+    <EmbeddedResource Include="Views\Users\UsuariosView.resx">
       <DependentUpon>UsuariosView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Usuarios\UsuariosForm.resx">
+    <EmbeddedResource Include="Views\Users\UsuariosForm.resx">
       <DependentUpon>UsuariosForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

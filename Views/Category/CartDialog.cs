@@ -14,7 +14,7 @@ namespace InventoryApp
             InitializeComponent();
             categoryManager = manager;
 
-            Text = "Add New Category";
+            Text = "Agregar nueva categoría";
         }
 
         // Constructor for Edit mode - Cat
@@ -25,7 +25,7 @@ namespace InventoryApp
             itemId = id;
             textBox2.Text = categoryItem;
 
-            Text = "Edit Category";
+            Text = "Editar categoría";
         }
 
         // Save Category and Validate
@@ -47,7 +47,7 @@ namespace InventoryApp
             }
             else
             {
-                errorProvider1.SetError(textBox2, "Category name is required.");
+                errorProvider1.SetError(textBox2, "El nombre de la categoría es obligatorio.");
             }
         }
 

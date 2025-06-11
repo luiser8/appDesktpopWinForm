@@ -23,6 +23,7 @@ namespace InventoryApp.Views.Usuarios
             InitializeComponent();
             RenderComboBoxRoles();
             userId = usuario.Id;
+            textBox4.Focus();
             textBox4.Text = usuario.FirstName;
             textBox5.Text = usuario.LastName;
             textBox1.Text = usuario.UserName;
@@ -73,13 +74,13 @@ namespace InventoryApp.Views.Usuarios
 
             if (string.IsNullOrEmpty(username))
             {
-                errorProvider1.SetError(textBox1, "Please enter a username.");
+                errorProvider1.SetError(textBox1, "Por favor, introduzca un nombre de usuario.");
                 isValid = false;
             }
 
             if (string.IsNullOrEmpty(password))
             {
-                errorProvider1.SetError(textBox2, "Please enter a password.");
+                errorProvider1.SetError(textBox2, "Por favor, introduzca una contraseña.");
                 isValid = false;
             }
 
