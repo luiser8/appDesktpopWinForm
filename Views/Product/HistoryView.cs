@@ -5,11 +5,11 @@ using System.Windows.Forms;
 
 namespace InventoryApp.InventoryApp.dlg
 {
-    public partial class History : Form
+    public partial class HistoryView : Form
     {
         private readonly HistoryManager _historyManager = new HistoryManager();
         private readonly int _productId;
-        public History(int id)
+        public HistoryView(int id)
         {
             InitializeComponent();
             _productId = id;

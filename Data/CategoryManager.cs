@@ -2,7 +2,6 @@
 using InventoryApp.Utility;
 using System.Collections;
 using System.Data;
-using System.Data.SqlClient;
 
 namespace InventoryApp.Data
 {
@@ -26,6 +25,7 @@ namespace InventoryApp.Data
         {
             _params.Clear();
             _params.Add("@CategoryItem", category.CategoryItem);
+            _params.Add("@Status", category.Status);
             _dbCon.Execute("SP_Categories_Insert", _params);
 
             _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Categoria", Action = "Insertar categoria", Events = "Inserto una nueva categoria" });
@@ -37,6 +37,7 @@ namespace InventoryApp.Data
             _params.Clear();
             _params.Add("@Id", category.Id);
             _params.Add("@CategoryItem", category.CategoryItem);
+            _params.Add("@Status", category.Status);
             _dbCon.Execute("SP_Categories_Update", _params);
 
             _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Categoria", Action = "Actualizar categoria", Events = "Actualizo una categoria" });

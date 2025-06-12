@@ -43,6 +43,7 @@ namespace InventoryApp.Data
             _params.Add("@Stock", product.Stock);
             _params.Add("@Unit", product.Unit);
             _params.Add("@Category", product.Category);
+            _params.Add("Status", product.Status ? 1 : 0);
             _dt = _dbCon.Execute("SP_Products_Insert", _params);
 
             _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Product", Action = "Insertar producto", Events = "Inserto un nuevo producto" });
@@ -68,6 +69,7 @@ namespace InventoryApp.Data
             _params.Add("@Stock", product.Stock);
             _params.Add("@Unit", product.Unit);
             _params.Add("@Category", product.Category);
+            _params.Add("Status", product.Status ? 1 : 0);
             _dbCon.Execute("SP_Products_Update", _params);
 
             _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Product", Action = "Actualizar producto", Events = "Actualizo un producto" });

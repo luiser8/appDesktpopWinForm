@@ -1,6 +1,6 @@
 ﻿namespace InventoryApp.InventoryApp.dlg
 {
-    partial class History
+    partial class HistoryView
     {
         /// <summary>
         /// Required designer variable.

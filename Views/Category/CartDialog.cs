@@ -1,6 +1,7 @@
 ﻿using System;
 using InventoryApp.Data;
 using System.Windows.Forms;
+using InventoryApp.Models;
 
 namespace InventoryApp
 {
@@ -18,12 +19,15 @@ namespace InventoryApp
         }
 
         // Constructor for Edit mode - Cat
-        public CartDialog(CategoryManager manager, int id, string categoryItem)
+        public CartDialog(CategoryManager manager, Category category)
         {
             InitializeComponent();
             categoryManager = manager;
-            itemId = id;
-            textBox2.Text = categoryItem;
+            itemId = category.Id;
+            textBox2.Text = category.CategoryItem;
+
+            radioButton1.Checked = category.Status;
+            radioButton2.Checked = !category.Status;
 
             Text = "Editar categoría";
         }
@@ -35,11 +39,11 @@ namespace InventoryApp
             {
                 if (itemId == 0) // Create mode
                 {
-                    categoryManager.AddCategory(new Models.Category { CategoryItem = textBox2.Text });
+                    categoryManager.AddCategory(new Category { CategoryItem = textBox2.Text, Status = radioButton1.Checked });
                 }
                 else // Edit mode
                 {
-                    categoryManager.UpdateCategory(new Models.Category { Id = itemId, CategoryItem = textBox2.Text });
+                    categoryManager.UpdateCategory(new Category { Id = itemId, CategoryItem = textBox2.Text, Status = radioButton1.Checked });
                 }
 
                 DialogResult = DialogResult.OK;

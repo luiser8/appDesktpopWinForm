@@ -4,6 +4,7 @@ using InventoryApp.Data;
 using System.Windows.Forms;
 using InventoryApp.InventoryApp.dlg;
 using InventoryApp.Utility;
+using InventoryApp.Models;
 
 namespace InventoryApp
 {
@@ -80,15 +81,20 @@ namespace InventoryApp
             {
                 // Get the data from the selected row
                 DataGridViewRow row = dataGridView1.SelectedRows[0];
-                int id = (int)row.Cells["Id"].Value;
-                string name = row.Cells["name"].Value.ToString();
-                decimal price = (decimal)row.Cells["price"].Value;
-                int stock = (int)row.Cells["stock"].Value;
-                int unit = (int)row.Cells["unit"].Value;
-                string category = row.Cells["category"].Value.ToString();
+
+                var product = new Product
+                {
+                    Id = (int)row.Cells["Id"].Value,
+                    Name = row.Cells["name"].Value.ToString(),
+                    Price = (decimal)row.Cells["price"].Value,
+                    Stock = (int)row.Cells["stock"].Value,
+                    Unit = (int)row.Cells["unit"].Value,
+                    Category = row.Cells["category"].Value.ToString(),
+                    Status = Convert.ToString(row.Cells["StatusString"].Value) == "Activo"
+                };
 
                 // Pass the data to EditDialog
-                ProductDialog dlg = new ProductDialog(productManager, categoryManager, id, name, price, stock, unit, category);
+                ProductDialog dlg = new ProductDialog(productManager, categoryManager, product);
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     dataGridView1.DataSource = productManager.SelectProductsAll();
@@ -144,7 +150,7 @@ namespace InventoryApp
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 int id = (int)dataGridView1.SelectedRows[0].Cells["Id"].Value;
-                History historyForm = new History(id);
+                HistoryView historyForm = new HistoryView(id);
                 historyForm.ShowDialog();
             }
             else
@@ -180,7 +186,7 @@ namespace InventoryApp
                 // Add item to the cart
                 if (stock > 0)
                 {
-                    bool itemAdded = cartManager.AddItemToCart(new Models.Cart { ProductId = productId, Name = name, Price = price, Quantity = 1 });
+                    bool itemAdded = cartManager.AddItemToCart(new Cart { ProductId = productId, Name = name, Price = price, Quantity = 1 });
                     if (itemAdded)
                     {
                         MessageBox.Show("Producto añadido al carrito.");

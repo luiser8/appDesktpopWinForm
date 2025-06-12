@@ -1,5 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
 using InventoryApp.Data;
+using System.Windows.Forms;
 
 namespace InventoryApp.InventoryApp.Views
 {
@@ -37,11 +38,11 @@ namespace InventoryApp.InventoryApp.Views
             {
                 // Get the data from the selected row
                 DataGridViewRow row = dataGridView1.SelectedRows[0];
-                int id = (int)row.Cells["Id"].Value;
-                string categoryItem = row.Cells["CategoryItem"].Value.ToString();
+
+                var category = new Models.Category { Id = (int)row.Cells["Id"].Value, CategoryItem = row.Cells["CategoryItem"].Value.ToString(), Status = row.Cells["StatusString"].Value.ToString() == "Activo" };
 
                 // Pass the data to EditCat
-                CartDialog dlg = new CartDialog(categoryManager, id, categoryItem);
+                CartDialog dlg = new CartDialog(categoryManager, category);
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     dataGridView1.DataSource = categoryManager.GetCategories();

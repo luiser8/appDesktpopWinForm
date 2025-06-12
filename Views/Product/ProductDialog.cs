@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Bibliography;
 using InventoryApp.Data;
-using System.Windows.Forms;
 using InventoryApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Windows.Forms;
 
 namespace InventoryApp
 {
@@ -32,7 +33,8 @@ namespace InventoryApp
             foreach (DataRow categoryRow in _categoryManager.GetCategories().Rows)
             {
                 object value = categoryRow["CategoryItem"];
-                if (value != DBNull.Value)
+                object statusValue = categoryRow["StatusString"];
+                if (value != DBNull.Value && statusValue.ToString() != "Inactivo")
                 {
                     categoryItems.Add(value.ToString());
                 }
@@ -41,18 +43,21 @@ namespace InventoryApp
         }
 
         // Constructor for Edit mode
-        public ProductDialog(ProductManager productManager, CategoryManager categoryManager, int id, string name, decimal price, int stock, int unit, string category)
+        public ProductDialog(ProductManager productManager, CategoryManager categoryManager, Product product)
         {
             InitializeComponent();
             _productManager = productManager;
             _categoryManager = categoryManager;
-            itemId = id;
+            itemId = product.Id;
 
-            textBox1.Text = name;
-            textBox2.Text = price.ToString();
-            textBox3.Text = stock.ToString();
-            textBox4.Text = unit.ToString();
-            comboBox1.Text = category;
+            textBox1.Text = product.Name;
+            textBox2.Text = product.Price.ToString();
+            textBox3.Text = product.Stock.ToString();
+            textBox4.Text = product.Unit.ToString();
+            comboBox1.Text = product.Category;
+
+            radioButton1.Checked = product.Status;
+            radioButton2.Checked = !product.Status;
 
             // ComboBox Items
             RenderComboBoxCategory();
@@ -72,7 +77,8 @@ namespace InventoryApp
                     Price = Convert.ToDecimal(textBox2.Text),
                     Stock = Convert.ToInt32(textBox3.Text),
                     Unit = Convert.ToInt32(textBox4.Text),
-                    Category = comboBox1.Text
+                    Category = comboBox1.Text,
+                    Status = radioButton1.Checked
                 };
                 _productManager.InsertProduct(newProduct);
             }
@@ -85,7 +91,8 @@ namespace InventoryApp
                     Price = Convert.ToDecimal(textBox2.Text),
                     Stock = Convert.ToInt32(textBox3.Text),
                     Unit = Convert.ToInt32(textBox4.Text),
-                    Category = comboBox1.Text
+                    Category = comboBox1.Text,
+                    Status = radioButton1.Checked
                 });
             }
 
@@ -96,7 +103,14 @@ namespace InventoryApp
         // SAVE or UPDATE BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
-            SaveProduct();
+            if (textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "" && textBox4.Text != "" && comboBox1.Text != "" && radioButton1.Checked || radioButton2.Checked)
+            {
+                SaveProduct();
+            } else
+            {
+                MessageBox.Show("Error! debes llenar todos los campos");
+            }
+            
         }
 
         // CANCEL BUTTON
