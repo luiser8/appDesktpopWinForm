@@ -24,6 +24,13 @@ namespace InventoryApp.Data
             return _dt;
         }
 
+        public DataTable SelectReportsTransaccions()
+        {
+            _params.Clear();
+            _dt = _dbCon.Execute("SP_Report_Transacions", _params);
+            return _dt;
+        }
+
         // Insert Transaction Items
         public void InsertTransactionItems(ListBox listBox, string transactionId)
         {

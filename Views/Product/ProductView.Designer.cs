@@ -38,6 +38,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -45,9 +46,9 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(672, 79);
+            this.button1.Location = new System.Drawing.Point(680, 89);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(90, 30);
+            this.button1.Size = new System.Drawing.Size(111, 30);
             this.button1.TabIndex = 0;
             this.button1.Text = "AGREGAR";
             this.button1.UseVisualStyleBackColor = true;
@@ -56,9 +57,9 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(672, 115);
+            this.button2.Location = new System.Drawing.Point(680, 125);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(90, 30);
+            this.button2.Size = new System.Drawing.Size(111, 30);
             this.button2.TabIndex = 1;
             this.button2.Text = "EDITAR";
             this.button2.UseVisualStyleBackColor = true;
@@ -67,9 +68,9 @@
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(672, 151);
+            this.button3.Location = new System.Drawing.Point(680, 161);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(90, 30);
+            this.button3.Size = new System.Drawing.Size(111, 30);
             this.button3.TabIndex = 2;
             this.button3.Text = "ELIMINAR";
             this.button3.UseVisualStyleBackColor = true;
@@ -83,7 +84,7 @@
             this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Location = new System.Drawing.Point(12, 59);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(654, 430);
+            this.groupBox1.Size = new System.Drawing.Size(662, 430);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Lista de productos";
@@ -104,16 +105,16 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(628, 395);
+            this.dataGridView1.Size = new System.Drawing.Size(636, 395);
             this.dataGridView1.TabIndex = 4;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(672, 393);
+            this.button4.Location = new System.Drawing.Point(680, 393);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(90, 45);
+            this.button4.Size = new System.Drawing.Size(111, 45);
             this.button4.TabIndex = 4;
             this.button4.Text = "AGREGAR STOCK";
             this.button4.UseVisualStyleBackColor = true;
@@ -122,9 +123,9 @@
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(672, 444);
+            this.button5.Location = new System.Drawing.Point(680, 444);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(90, 30);
+            this.button5.Size = new System.Drawing.Size(111, 30);
             this.button5.TabIndex = 5;
             this.button5.Text = "HISTORIAL";
             this.button5.UseVisualStyleBackColor = true;
@@ -136,7 +137,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(49, 26);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(515, 20);
+            this.textBox1.Size = new System.Drawing.Size(544, 20);
             this.textBox1.TabIndex = 6;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
@@ -144,7 +145,7 @@
             // button6
             // 
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(570, 23);
+            this.button6.Location = new System.Drawing.Point(599, 23);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 23);
             this.button6.TabIndex = 0;
@@ -155,19 +156,31 @@
             // button7
             // 
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.Location = new System.Drawing.Point(672, 16);
+            this.button7.Location = new System.Drawing.Point(680, 16);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(90, 30);
+            this.button7.Size = new System.Drawing.Size(111, 30);
             this.button7.TabIndex = 7;
             this.button7.Text = "EXPORTAR";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
+            // button8
+            // 
+            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button8.Location = new System.Drawing.Point(680, 53);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(111, 30);
+            this.button8.TabIndex = 8;
+            this.button8.Text = "TRANSACCIONES";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
             // ProductView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(774, 501);
+            this.ClientSize = new System.Drawing.Size(803, 501);
+            this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.textBox1);
@@ -199,6 +212,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
     }
 }
 

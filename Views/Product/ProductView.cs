@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using InventoryApp.InventoryApp.dlg;
 using InventoryApp.Utility;
 using InventoryApp.Models;
+using System.Drawing;
 
 namespace InventoryApp
 {
@@ -13,6 +14,7 @@ namespace InventoryApp
         private readonly ProductManager productManager = new ProductManager();
         private readonly CategoryManager categoryManager = new CategoryManager();
         private readonly CartManager cartManager = new CartManager();
+        private readonly TransactionManager transactionManager = new TransactionManager();
 
         public ProductView()
         {
@@ -165,7 +167,8 @@ namespace InventoryApp
             DataGridViewButtonColumn buttonColumn = new DataGridViewButtonColumn
             {
                 Text = "Agregar",
-                UseColumnTextForButtonValue = true
+                UseColumnTextForButtonValue = true,
+                Name = "Opciones"
             };
             dataGridView1.Columns.Add(buttonColumn);
             dataGridView1.CellContentClick -= dataGridView1_CellContentClick;
@@ -177,24 +180,32 @@ namespace InventoryApp
         {
             if (dataGridView1.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
-                // Get the values from the selected row
-                int productId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value);
-                string name = dataGridView1.Rows[e.RowIndex].Cells["Name"].Value.ToString();
-                decimal price = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells["Price"].Value);
-                int stock = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Stock"].Value);
-
-                // Add item to the cart
-                if (stock > 0)
+                if (e.ColumnIndex == dataGridView1.Columns["Opciones"].Index && e.RowIndex >= 0)
                 {
-                    bool itemAdded = cartManager.AddItemToCart(new Cart { ProductId = productId, Name = name, Price = price, Quantity = 1 });
-                    if (itemAdded)
+                    var estado = dataGridView1.Rows[e.RowIndex].Cells[7].Value?.ToString();
+                    if (estado == "Inactivo")
                     {
-                        MessageBox.Show("Producto añadido al carrito.");
+                        MessageBox.Show("No se puede agregar un producto inactivo");
+                        return;
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Producto agotado.");
+
+                    int productId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value);
+                    string name = dataGridView1.Rows[e.RowIndex].Cells["Name"].Value.ToString();
+                    decimal price = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells["Price"].Value);
+                    int stock = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Stock"].Value);
+
+                    if (stock > 0)
+                    {
+                        bool itemAdded = cartManager.AddItemToCart(new Cart { ProductId = productId, Name = name, Price = price, Quantity = 1 });
+                        if (itemAdded)
+                        {
+                            MessageBox.Show("Producto añadido al carrito.");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Producto agotado.");
+                    }
                 }
             }
         }
@@ -203,7 +214,7 @@ namespace InventoryApp
         {
             try
             {
-                ExcelGeneration.ExportAndOpen(productManager.SelectProductsAll(), "Productos");
+                ExcelGeneration.ExportAndOpen(productManager.SelectReportsProducts(), "Productos");
                 MessageBox.Show("Datos exportados exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -211,7 +222,20 @@ namespace InventoryApp
                 MessageBox.Show($"Error al exportar datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw;
             }
+        }
 
+        private void button8_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ExcelGeneration.ExportAndOpen(transactionManager.SelectReportsTransaccions(), "Transacciones");
+                MessageBox.Show("Datos exportados exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al exportar datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
         }
     }
 }

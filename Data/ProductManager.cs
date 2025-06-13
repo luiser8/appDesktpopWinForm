@@ -19,6 +19,13 @@ namespace InventoryApp.Data
             return _dt;
         }
 
+        public DataTable SelectReportsProducts()
+        {
+            _params.Clear();
+            _dt = _dbCon.Execute("SP_Report_Products", _params);
+            return _dt;
+        }
+
         public DataTable SelectProductsById(int id)
         {
             _params.Clear();
