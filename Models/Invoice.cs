@@ -2,10 +2,14 @@
 
 namespace InventoryApp.Models
 {
-    public class Transaction
+    public class Invoice
     {
         public int Id { get; set; }
-        public string TransactionId { get; set; }
+        public string InvoiceId { get; set; }
+        public int PayMethodId { get; set; }
+        public string PayMethod { get; set; }
+        public int BankId { get; set; }
+        public string Bank { get; set; }
         public string Subtotal { get; set; }
         public string Cash { get; set; }
         public string DiscountPercent { get; set; }

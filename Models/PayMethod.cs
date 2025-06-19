@@ -2,13 +2,10 @@
 
 namespace InventoryApp.Models
 {
-    public class Order
+    public class PayMethod
     {
         public int Id { get; set; }
-        public string InvoiceId { get; set; }
         public string Name { get; set; }
-        public string Price { get; set; }
-        public int Quantity { get; set; }
         public bool Status { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }

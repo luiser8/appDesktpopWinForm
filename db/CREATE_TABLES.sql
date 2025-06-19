@@ -45,10 +45,32 @@ CREATE TABLE [dbo].[Cart]
 	CONSTRAINT FK_PRODUCT_ID FOREIGN KEY (ProductId) REFERENCES dbo.Product (Id) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
--- Table to store transaction information
-CREATE TABLE [dbo].[Transactions]
+-- Creates a table to store banks information
+CREATE TABLE [dbo].[Banks]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1), 
+	[Name] VARCHAR(155) NOT NULL,
+	[Abbreviation] VARCHAR(15) NOT NULL,
+	[Status] TINYINT NOT NULL DEFAULT 1,
+	[CreatedAt] DATETIME NOT NULL DEFAULT GETDATE()
+);
+
+-- Creates a table to store pay methods information
+CREATE TABLE [dbo].[PayMethods]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1), 
+	[Name] VARCHAR(155) NOT NULL,
+	[Status] TINYINT NOT NULL DEFAULT 1,
+	[CreatedAt] DATETIME NOT NULL DEFAULT GETDATE()
+);
+
+-- Table to store invoice information
+CREATE TABLE [dbo].[Invoice]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1), 
+	[InvoiceId] VARCHAR(MAX) NULL,
+	[PayMethodId] INT NOT NULL,
+	[BankId] INT NOT NULL,
     [Date] DATETIME NULL, 
     [Subtotal] VARCHAR(50) NULL, 
     [Cash] VARCHAR(50) NULL, 
@@ -56,24 +78,23 @@ CREATE TABLE [dbo].[Transactions]
     [DiscountAmount] VARCHAR(50) NULL, 
     [Total] VARCHAR(50) NULL, 
     [Change] VARCHAR(50) NULL, 
-    [TransactionId] VARCHAR(MAX) NULL,
     [Uid] INT NULL,
 	[Status] TINYINT NOT NULL DEFAULT 1,
-	[CreatedAt] DATETIME NOT NULL DEFAULT GETDATE()
+	[CreatedAt] DATETIME NOT NULL DEFAULT GETDATE(),
+	CONSTRAINT FK_PAY_METHOD_ID FOREIGN KEY (PayMethodId) REFERENCES dbo.PayMethods (Id) ON DELETE CASCADE ON UPDATE NO ACTION,
+	CONSTRAINT FK_BANK_ID FOREIGN KEY (BankId) REFERENCES dbo.Banks (Id) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 -- Table to store ordered items in a transaction
 CREATE TABLE [dbo].[Orders]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1), 
-    --[TransactionId] INT NULL,
-	[TransactionId] VARCHAR(MAX) NULL,
+	[InvoiceId] VARCHAR(MAX) NULL,
     [Name] VARCHAR(50) NULL, 
     [Price] VARCHAR(50) NULL, 
     [Quantity] INT NULL,
 	[Status] TINYINT NOT NULL DEFAULT 1,
-	[CreatedAt] DATETIME NOT NULL DEFAULT GETDATE(),
-	--CONSTRAINT FK_TRANSACTION_ID FOREIGN KEY (TransactionId) REFERENCES dbo.Transactions (Id) ON DELETE CASCADE ON UPDATE NO ACTION
+	[CreatedAt] DATETIME NOT NULL DEFAULT GETDATE()
 );
 
 -- Creates a table to store rol information
@@ -97,7 +118,7 @@ CREATE TABLE [dbo].[Account]
     [Email] VARCHAR(50) NULL UNIQUE,
 	[Status] TINYINT NOT NULL DEFAULT 1,
 	[CreatedAt] DATETIME NOT NULL DEFAULT GETDATE(),
-	CONSTRAINT FK_ROL_ID FOREIGN KEY (RolId) REFERENCES dbo.rol (Id) ON DELETE CASCADE ON UPDATE NO ACTION
+	CONSTRAINT FK_ROL_ID FOREIGN KEY (RolId) REFERENCES dbo.Rol (Id) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 -- Creates a table to store audit information

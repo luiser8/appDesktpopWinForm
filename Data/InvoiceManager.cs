@@ -7,7 +7,7 @@ using InventoryApp.Models;
 
 namespace InventoryApp.Data
 {
-    internal class TransactionManager
+    internal class InvoiceManager
     {
         private readonly OrdersManager _ordersManager = new OrdersManager();
         private readonly ProductManager _productManager = new ProductManager();
@@ -16,23 +16,23 @@ namespace InventoryApp.Data
         private DataTable _dt = new DataTable();
         private readonly Hashtable _params = new Hashtable();
 
-        public DataTable SelectTransactionsAll(int uid)
+        public DataTable SelectInvoiceAll(int uid)
         {
             _params.Clear();
             _params.Add("@Uid", uid);
-            _dt = _dbCon.Execute("SP_Transactions_Select_All", _params);
+            _dt = _dbCon.Execute("SP_Invoice_Select_All", _params);
             return _dt;
         }
 
-        public DataTable SelectReportsTransaccions()
+        public DataTable SelectReportsInvoice()
         {
             _params.Clear();
-            _dt = _dbCon.Execute("SP_Report_Transacions", _params);
+            _dt = _dbCon.Execute("SP_Report_Invoice", _params);
             return _dt;
         }
 
-        // Insert Transaction Items
-        public void InsertTransactionItems(ListBox listBox, string transactionId)
+        // Insert Invoice Items
+        public void InsertInvoiceItems(ListBox listBox, string invoiceId)
         {
             foreach (var item in listBox.Items)
             {
@@ -43,29 +43,31 @@ namespace InventoryApp.Data
 
                 _ordersManager.InsertOrders(new Order
                 {
-                    TransactionId = transactionId,
+                    InvoiceId = invoiceId,
                     Name = name,
                     Price = price.ToString(),
                     Quantity = quantity,
                 });
             }
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Transaction", Action = "Insertar item transaccion", Events = "Insertar item a la transaccion" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Invoice", Action = "Insertar item factura", Events = "Insertar item a la factura" });
         }
 
         // Saved Transaction
-        public void SaveTransactionToDatabase(Transaction transaction)
+        public void SaveInvoiceToDatabase(Invoice transaction)
         {
             try
             {
                 if (transaction == null)
                 {
-                    throw new ArgumentNullException(nameof(transaction), "La transacción no puede ser nula");
+                    throw new ArgumentNullException(nameof(transaction), "La factura no puede ser nula");
                 }
 
                 _productManager.UpdateProductByStock(null, null);
 
                 _params.Clear();
-                _params.Add("@TransactionId", transaction.TransactionId);
+                _params.Add("@InvoiceId", transaction.InvoiceId);
+                _params.Add("@PayMethodId", 1);
+                _params.Add("@BankId", 1);
                 _params.Add("@Subtotal", transaction.Subtotal);
                 _params.Add("@Cash", transaction.Cash);
                 _params.Add("@DiscountPercent", transaction.DiscountPercent);
@@ -74,7 +76,7 @@ namespace InventoryApp.Data
                 _params.Add("@Total", transaction.Total);
                 _params.Add("@Date", transaction.Date);
                 _params.Add("@Uid", transaction.Uid);
-                _dt = _dbCon.Execute("SP_Transactions_Insert", _params);
+                _dt = _dbCon.Execute("SP_Invoice_Insert", _params);
             }
             catch (Exception ex)
             {
@@ -82,7 +84,7 @@ namespace InventoryApp.Data
                     throw new Exception(ex.Message);
                 }
             }
-            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Transaction", Action = "Insertar transaccion", Events = "Insertar Transaccion" });
+            _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Invoice", Action = "Insertar factura", Events = "Insertar factura" });
         }
     }
 }

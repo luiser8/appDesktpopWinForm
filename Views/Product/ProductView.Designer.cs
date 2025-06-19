@@ -38,7 +38,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -46,7 +45,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(680, 89);
+            this.button1.Location = new System.Drawing.Point(680, 52);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(111, 30);
             this.button1.TabIndex = 0;
@@ -57,7 +56,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(680, 125);
+            this.button2.Location = new System.Drawing.Point(680, 88);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(111, 30);
             this.button2.TabIndex = 1;
@@ -68,7 +67,7 @@
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(680, 161);
+            this.button3.Location = new System.Drawing.Point(680, 124);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(111, 30);
             this.button3.TabIndex = 2;
@@ -164,23 +163,11 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
-            // button8
-            // 
-            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button8.Location = new System.Drawing.Point(680, 53);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(111, 30);
-            this.button8.TabIndex = 8;
-            this.button8.Text = "TRANSACCIONES";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
             // ProductView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(803, 501);
-            this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.textBox1);
@@ -212,7 +199,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
     }
 }
 

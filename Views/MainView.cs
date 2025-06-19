@@ -51,8 +51,14 @@ namespace InventoryApp.InventoryApp
                     case "Ventas":
                         radioButton3.Visible = true;
                         break;
-                    case "Transacciones":
+                    case "Facturacion":
                         radioButton4.Visible = true;
+                        break;
+                    case "Bancos":
+                        radioButton7.Visible = true;
+                        break;
+                    case "Metodos de pago":
+                        radioButton8.Visible = true;
                         break;
                     case "Inicio":
                         radioButton5.Visible = true;
@@ -125,7 +131,7 @@ namespace InventoryApp.InventoryApp
         {
             if (radioButton4.Checked)
             {
-                SwitchForm(new Transaction());
+                SwitchForm(new InvoiceView());
             }
         }
 
@@ -170,6 +176,11 @@ namespace InventoryApp.InventoryApp
         private void MainView_Load(object sender, EventArgs e)
         {
             Text = $"{ConfigurationManager.AppSettings["AppType"].ToString()} - {ConfigurationManager.AppSettings["companyName"].ToString()}, {ConfigurationManager.AppSettings["companyRif"].ToString()}";
+        }
+
+        private void radioButton8_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

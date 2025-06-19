@@ -21,14 +21,14 @@ namespace InventoryApp.InventoryApp.dlg
         }
 
         //FETCH DATA FROM ORDERS TABLE
-        private void DisplayTransactionItems(string transactionId)
+        private void DisplayTransactionItems(string invoiceId)
         {
-            if (string.IsNullOrEmpty(transactionId))
+            if (string.IsNullOrEmpty(invoiceId))
             {
-                MessageBox.Show("El ID de transacción no puede ser nulo o vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El ID de factura no puede ser nulo o vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            dataGridView1.DataSource = _ordersManager.GetOrdersByTransactionId(transactionId);
+            dataGridView1.DataSource = _ordersManager.GetOrdersByInvoiceId(invoiceId);
         }
     }
 }

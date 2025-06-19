@@ -110,24 +110,26 @@
     <Compile Include="Data\ProductManager.cs" />
     <Compile Include="Data\RolManager.cs" />
     <Compile Include="Data\RolPolicyManager.cs" />
-    <Compile Include="Data\TransactionManager.cs" />
+    <Compile Include="Data\InvoiceManager.cs" />
     <Compile Include="Data\AccountManager.cs" />
     <Compile Include="Models\AuditUser.cs" />
+    <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ComboBoxItem.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\PayMethod.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\RolPolicy.cs" />
-    <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Utility\CustomDataTable.cs" />
     <Compile Include="Utility\ExcelGeneration.cs" />
     <Compile Include="Utility\Md5.cs" />
     <Compile Include="Utility\PointOfSale.cs" />
-    <Compile Include="Utility\TransactionIdGenerator.cs" />
+    <Compile Include="Utility\InvoiceIdGenerator.cs" />
     <Compile Include="Models\UserSession.cs" />
     <Compile Include="Views\Audit\AuditView.cs">
       <SubType>Form</SubType>
@@ -159,17 +161,17 @@
     <Compile Include="Views\Sale\Quantity.Designer.cs">
       <DependentUpon>Quantity.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Transaction\Details.cs">
+    <Compile Include="Views\Invoice\Details.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Transaction\Details.Designer.cs">
+    <Compile Include="Views\Invoice\Details.Designer.cs">
       <DependentUpon>Details.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Transaction\Transaction.cs">
+    <Compile Include="Views\Invoice\InvoiceView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Transaction\Transaction.Designer.cs">
-      <DependentUpon>Transaction.cs</DependentUpon>
+    <Compile Include="Views\Invoice\InvoiceView.Designer.cs">
+      <DependentUpon>InvoiceView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Category\CartDialog.cs">
       <SubType>Form</SubType>
@@ -254,11 +256,11 @@
     <EmbeddedResource Include="Views\Sale\Quantity.resx">
       <DependentUpon>Quantity.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Transaction\Details.resx">
+    <EmbeddedResource Include="Views\Invoice\Details.resx">
       <DependentUpon>Details.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Transaction\Transaction.resx">
-      <DependentUpon>Transaction.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Invoice\InvoiceView.resx">
+      <DependentUpon>InvoiceView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Category\CartDialog.resx">
       <DependentUpon>CartDialog.cs</DependentUpon>

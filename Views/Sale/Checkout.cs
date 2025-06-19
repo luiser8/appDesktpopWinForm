@@ -1,21 +1,20 @@
-﻿using System;
-using InventoryApp.Data;
-using System.Windows.Forms;
+﻿using InventoryApp.Data;
 using InventoryApp.Utility;
+using System;
+using System.Windows.Forms;
 
 namespace InventoryApp
 {
     public partial class Checkout : Form
     {
-        private readonly PointOfSale pointOfSale;
-        CartManager cartManager = new CartManager();
+        private readonly PointOfSale pointOfSale = new PointOfSale();
+        private readonly CartManager cartManager = new CartManager();
+        private readonly InvoiceManager invoiceManager = new InvoiceManager();
+        private readonly InvoiceIdGenerator invoiceIdGenerator = new InvoiceIdGenerator();
 
         public Checkout(decimal totalPrice)
         {
             InitializeComponent();
-
-            pointOfSale = new PointOfSale();
-            cartManager = new CartManager();
 
             label3.Text = totalPrice.ToString();
 
@@ -60,14 +59,11 @@ namespace InventoryApp
         // INSERT STOCK BUTTON
         private void button1_Click(object sender, EventArgs e)
         {
-            TransactionManager transactionManager = new TransactionManager();
-            TransactionIdGenerator transactionIdGenerator = new TransactionIdGenerator();
+            string invoiceId = invoiceIdGenerator.GenerateInvoiceId();
 
-            string transactionId = transactionIdGenerator.GenerateTransactionId();
-
-            if (pointOfSale.ProcessTransaction(label3.Text, textBox2.Text, comboBox1.SelectedItem, transactionId))
+            if (pointOfSale.ProcessInvoice(label3.Text, textBox2.Text, comboBox1.SelectedItem, invoiceId))
             {
-                transactionManager.InsertTransactionItems(listBox1, transactionId);
+                invoiceManager.InsertInvoiceItems(listBox1, invoiceId);
                 DialogResult = DialogResult.OK;
             }
         }

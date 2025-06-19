@@ -7,12 +7,8 @@ namespace InventoryApp.Utility
 {
     public class PointOfSale
     {
-        private readonly CartManager cartManager;
-                
-        public PointOfSale()
-        {
-            cartManager = new CartManager();
-        }
+        private readonly CartManager cartManager = new CartManager();
+        private readonly InvoiceManager invoiceManager = new InvoiceManager();
 
         public void InitializeComboBox(ComboBox comboBox)
         {
@@ -61,7 +57,7 @@ namespace InventoryApp.Utility
         }
 
         // Process Transaction then save to database
-        public bool ProcessTransaction(string totalText, string cashText, object selectedItem, string transactionId)
+        public bool ProcessInvoice(string totalText, string cashText, object selectedItem, string invoiceId)
         {
             int subtotal = Convert.ToInt32(totalText);
             int cash = string.IsNullOrWhiteSpace(cashText) ? 0 : Convert.ToInt32(cashText);
@@ -81,19 +77,20 @@ namespace InventoryApp.Utility
             // Validate if there is enough cash
             if (cash < total)
             {
-                MessageBox.Show("No hay suficiente efectivo para completar la transacción.");
+                MessageBox.Show("No hay suficiente efectivo para generar la facturacion.");
                 return false;
             }
 
             double change = cash - total;
             DateTime currentDate = DateTime.Now;
 
-            TransactionManager transactionManager = new TransactionManager();
             try
             {
-                transactionManager.SaveTransactionToDatabase(new Models.Transaction
+                invoiceManager.SaveInvoiceToDatabase(new Invoice
                 {
-                    TransactionId = transactionId,
+                    InvoiceId = invoiceId,
+                    BankId = 1,
+                    PayMethodId = 1,
                     Subtotal = subtotal.ToString(),
                     Cash = cash.ToString(),
                     DiscountPercent = Math.Round(discountPercent, 0) + "%",
@@ -110,7 +107,7 @@ namespace InventoryApp.Utility
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Se produjo un error al guardar la transacción: " + ex.Message);
+                MessageBox.Show("Se produjo un error al guardar la factura: " + ex.Message);
                 return false;
             }
         }

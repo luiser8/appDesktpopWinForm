@@ -78,7 +78,6 @@ VALUES
 ('Dog Food', 5, 100, 1, 'Pets'),
 ('Cat Food', 4, 120, 1, 'Pets');
 
-
 -- Insert Rol
 INSERT INTO [dbo].[Rol] ([RolName])
 VALUES
@@ -100,7 +99,9 @@ VALUES
 ('Productos', 'Acceso a Productos'),
 ('Categorias', 'Acceso a Categorias'),
 ('Ventas', 'Acceso a Ventas'),
-('Transacciones', 'Acceso a Transacciones'),
+('Facturacion', 'Acceso a Facturacion'),
+('Bancos', 'Acceso a Bancos'),
+('Metodos de pago', 'Acceso a Metodos de pago'),
 ('Usuarios', 'Acceso a Usuarios');
 
 -- Insert Rol Policies
@@ -112,11 +113,15 @@ VALUES
 (1, 4),
 (1, 5),
 (1, 6),
+(1, 7),
+(1, 8),
 (2, 1),
 (2, 2),
 (2, 3),
 (2, 4),
 (2, 5),
+(2, 6),
+(2, 7),
 (3, 1),
 (3, 2),
 (3, 3),
@@ -126,3 +131,18 @@ VALUES
 (4, 3),
 (4, 4),
 (4, 5);
+
+-- Insert Banks
+INSERT INTO [dbo].[Banks] ([Name], [Abbreviation])
+VALUES
+('Banco de Venezuela', 'BDV'),
+('Banco Mercantil', 'Mercantil'),
+('Banco Banesco', 'Banesco');
+
+-- Insert PayMethods
+INSERT INTO [dbo].[PayMethods] ([Name])
+VALUES
+('Deposito'),
+('Tarjeta de debito'),
+('Tarjeta de credito'),
+('Transferencia');

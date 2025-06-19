@@ -42,6 +42,8 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.radioButton7 = new System.Windows.Forms.RadioButton();
+            this.radioButton8 = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -49,6 +51,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gainsboro;
+            this.panel1.Controls.Add(this.radioButton8);
+            this.panel1.Controls.Add(this.radioButton7);
             this.panel1.Controls.Add(this.radioButton6);
             this.panel1.Controls.Add(this.radioButton5);
             this.panel1.Controls.Add(this.button1);
@@ -67,7 +71,7 @@
             // 
             this.radioButton6.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButton6.Location = new System.Drawing.Point(4, 205);
+            this.radioButton6.Location = new System.Drawing.Point(4, 288);
             this.radioButton6.Name = "radioButton6";
             this.radioButton6.Size = new System.Drawing.Size(210, 45);
             this.radioButton6.TabIndex = 6;
@@ -109,11 +113,11 @@
             // 
             this.radioButton4.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButton4.Location = new System.Drawing.Point(4, 168);
+            this.radioButton4.Location = new System.Drawing.Point(4, 163);
             this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(210, 38);
+            this.radioButton4.Size = new System.Drawing.Size(210, 43);
             this.radioButton4.TabIndex = 3;
-            this.radioButton4.Text = "Transacciones";
+            this.radioButton4.Text = "Facturas";
             this.radioButton4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButton4.UseVisualStyleBackColor = true;
             this.radioButton4.Visible = false;
@@ -123,9 +127,9 @@
             // 
             this.radioButton3.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButton3.Location = new System.Drawing.Point(4, 129);
+            this.radioButton3.Location = new System.Drawing.Point(4, 127);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(210, 38);
+            this.radioButton3.Size = new System.Drawing.Size(210, 40);
             this.radioButton3.TabIndex = 2;
             this.radioButton3.Text = "Ventas";
             this.radioButton3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -197,6 +201,33 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
+            // radioButton7
+            // 
+            this.radioButton7.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.radioButton7.Location = new System.Drawing.Point(4, 207);
+            this.radioButton7.Name = "radioButton7";
+            this.radioButton7.Size = new System.Drawing.Size(210, 44);
+            this.radioButton7.TabIndex = 7;
+            this.radioButton7.Text = "Bancos";
+            this.radioButton7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton7.UseVisualStyleBackColor = true;
+            this.radioButton7.Visible = false;
+            // 
+            // radioButton8
+            // 
+            this.radioButton8.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.radioButton8.Location = new System.Drawing.Point(4, 248);
+            this.radioButton8.Name = "radioButton8";
+            this.radioButton8.Size = new System.Drawing.Size(210, 44);
+            this.radioButton8.TabIndex = 8;
+            this.radioButton8.Text = "Metodos de pago";
+            this.radioButton8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton8.UseVisualStyleBackColor = true;
+            this.radioButton8.Visible = false;
+            this.radioButton8.CheckedChanged += new System.EventHandler(this.radioButton8_CheckedChanged);
+            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -233,5 +264,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.RadioButton radioButton8;
+        private System.Windows.Forms.RadioButton radioButton7;
     }
 }

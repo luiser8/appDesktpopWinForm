@@ -14,7 +14,6 @@ namespace InventoryApp
         private readonly ProductManager productManager = new ProductManager();
         private readonly CategoryManager categoryManager = new CategoryManager();
         private readonly CartManager cartManager = new CartManager();
-        private readonly TransactionManager transactionManager = new TransactionManager();
 
         public ProductView()
         {
@@ -226,16 +225,7 @@ namespace InventoryApp
 
         private void button8_Click(object sender, EventArgs e)
         {
-            try
-            {
-                ExcelGeneration.ExportAndOpen(transactionManager.SelectReportsTransaccions(), "Transacciones");
-                MessageBox.Show("Datos exportados exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al exportar datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw;
-            }
+
         }
     }
 }

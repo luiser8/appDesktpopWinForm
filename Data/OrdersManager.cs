@@ -15,7 +15,7 @@ namespace InventoryApp.Data
         public void InsertOrders(Order order)
         {
             _params.Clear();
-            _params.Add("@TransactionId", order.TransactionId);
+            _params.Add("@InvoiceId", order.InvoiceId);
             _params.Add("@Name", order.Name);
             _params.Add("@Price", order.Price);
             _params.Add("@Quantity", order.Quantity);
@@ -24,11 +24,11 @@ namespace InventoryApp.Data
             _auditManager.InsertAudit(new AuditUser { UserId = UserSession.SessionUID, Table = "Order", Action = "Insertar order", Events = "Insertar Order" });
         }
 
-        public DataTable GetOrdersByTransactionId(string transactionId)
+        public DataTable GetOrdersByInvoiceId(string invoiceId)
         {
             _params.Clear();
-            _params.Add("@TransactionId", transactionId);
-            _dt = _dbCon.Execute("SP_Orders_Select_ByTransactionId", _params);
+            _params.Add("@InvoiceId", invoiceId);
+            _dt = _dbCon.Execute("SP_Orders_Select_ByInvoiceId", _params);
             return _dt;
         }
     }
